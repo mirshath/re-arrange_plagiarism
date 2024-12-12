@@ -125,6 +125,25 @@ if (isset($_POST['submit'])) {
                             <h5>Checker: <?php echo htmlspecialchars($checker_name); ?></h5>
                             <div class="table-responsive">
                                 <table id="detailsTable" class="display" style="font-size: 11px;">
+                                    <?php
+                                    // Fetch distinct modules for the dropdown
+                                    $moduleQuery = "SELECT DISTINCT mt.module_name FROM module_table mt INNER JOIN student_submitted_form ssf ON mt.id = ssf.module_id WHERE ssf.checker_id = ?";
+
+                                    // Using prepared statements for safety
+                                    $moduleStmt = $conn->prepare($moduleQuery);
+                                    $moduleStmt->bind_param("s", $checker_id);
+                                    $moduleStmt->execute();
+                                    $moduleResult = $moduleStmt->get_result();
+                                    $modules = $moduleResult->fetch_all(MYSQLI_ASSOC);
+                                    $moduleStmt->close();
+
+                                    // ------------------------------------------------- 
+
+
+                                    // ------------------------------------------------------------------ 
+
+                                    // ------------------------------------------------------------------ 
+                                    ?>
                                     <thead>
                                         <tr>
                                             <th>Student ID</th>
@@ -132,7 +151,17 @@ if (isset($_POST['submit'])) {
                                             <th>Student Email</th>
                                             <th>Program</th>
                                             <th>Batch</th>
-                                            <th>Module</th>
+                                            <!-- <th>Module</th> -->
+                                            <th>Module
+                                                <select id="searchModule" style="font-size: 11px;" class="form-control">
+                                                    <option value="">All Modules</option>
+                                                    <?php foreach ($modules as $module): ?>
+                                                        <option value="<?php echo htmlspecialchars($module['module_name']); ?>">
+                                                            <?php echo htmlspecialchars($module['module_name']); ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </th>
                                             <th>Submitted Status</th>
                                             <th>Submitted at</th>
                                             <th>Uploaded Doc</th>
@@ -144,6 +173,21 @@ if (isset($_POST['submit'])) {
                                     </thead>
                                     <tbody>
                                         <?php while ($row = $result->fetch_assoc()): ?>
+
+
+                                            <?php
+                                            // Fetch the documents and display them (you can format the output as per your needs)
+                                            $document = $row['Documents'];
+                                            $document1 = $row['Documents_1'];
+                                            $document2 = $row['Documents_2'];
+
+                                            // Generate download links for each document
+                                            $documentLink = $document ? "<a href='download_document.php?file=" . urlencode($document) . "' download>Download</a>" : '';
+                                            $document1Link = $document1 ? "<a href='download_document.php?file=" . urlencode($document1) . "' download>Download</a>" : '';
+                                            $document2Link = $document2 ? "<a href='download_document.php?file=" . urlencode($document2) . "' download>Download</a>" : '';
+
+                                            ?>
+
                                             <tr>
                                                 <td><?php echo htmlspecialchars($row['student_id']); ?></td>
                                                 <td><?php echo htmlspecialchars($row['name']); ?></td>
@@ -155,9 +199,12 @@ if (isset($_POST['submit'])) {
                                                         ? '<span class="badge badge-success">Submitted</span>'
                                                         : '<span class="badge badge-danger">Not Yet</span>'; ?></td>
                                                 <td><?php echo htmlspecialchars($row['submitted_at']); ?></td>
-                                                <td><?php echo $row['Documents'] ? "<a href='download_document.php?file=" . urlencode($row['Documents']) . "'>Download</a>" : ''; ?></td>
+                                                <!-- <td><?php echo $row['Documents'] ? "<a href='download_document.php?file=" . urlencode($row['Documents']) . "'>Download</a>" : ''; ?></td>
                                                 <td><?php echo $row['Documents_1'] ? "<a href='download_document.php?file=" . urlencode($row['Documents_1']) . "'>Download</a>" : ''; ?></td>
-                                                <td><?php echo $row['Documents_2'] ? "<a href='download_document.php?file=" . urlencode($row['Documents_2']) . "'>Download</a>" : ''; ?></td>
+                                                <td><?php echo $row['Documents_2'] ? "<a href='download_document.php?file=" . urlencode($row['Documents_2']) . "'>Download</a>" : ''; ?></td> -->
+                                                <td><?= $documentLink ?></td>
+                                                <td><?= $document1Link ?></td>
+                                                <td><?= $document2Link ?></td>
                                                 <td><?php echo htmlspecialchars($row['checker_downlaoded_at']); ?></td>
                                                 <td><?php echo $row['checked_status'] === 'checked'
                                                         ? '<span class="badge badge-success">Checked</span>'
@@ -185,5 +232,21 @@ if (isset($_POST['submit'])) {
         });
     });
 </script>
+
+
+<script>
+    // Initialize DataTable
+    $(document).ready(function() {
+        var table = $('#detailsTable').DataTable();
+
+        // Filter by module selection
+        $('#searchModule').on('change', function() {
+            var selectedModule = this.value;
+            table.column(5).search(selectedModule).draw(); // Apply filter on module column (index 4)
+        });
+    });
+</script>
+
+
 
 <?php include("includes/footer.php"); ?>
