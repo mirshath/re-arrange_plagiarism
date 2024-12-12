@@ -83,6 +83,10 @@ if (isset($_POST['upload'])) {
 
                 fclose($handle);
                 echo "<script>alert('CSV file data successfully imported and allocations added.');</script>";
+
+                // After successful upload, start allocation
+                allocateStudents($program_id, $batch_id); // Call allocation function
+
             } else {
                 echo "Error opening the file.";
             }
@@ -91,6 +95,232 @@ if (isset($_POST['upload'])) {
         echo "Please upload a CSV file.";
     }
 }
+
+
+
+// ----------------- new this is hide   here wanna unhide 
+
+
+// Function to allocate students automatically and group them by checker
+function allocateStudents($program_id, $batch_id)
+{
+    global $conn;
+
+    // Fetch program and module names using program_id and batch_id
+    $programQuery = "SELECT program_name FROM program_table WHERE id = ?";
+    $stmt = $conn->prepare($programQuery);
+    $stmt->bind_param("i", $program_id);
+    $stmt->execute();
+    $programResult = $stmt->get_result();
+    $program = $programResult->fetch_assoc();
+    $programName = $program['program_name'];
+
+    // Fetch batch name using batch_id
+    $batchQuery = "SELECT batch_name FROM batch_table WHERE id = ?";
+    $stmt = $conn->prepare($batchQuery);
+    $stmt->bind_param("i", $batch_id);
+    $stmt->execute();
+    $batchResult = $stmt->get_result();
+    $batch = $batchResult->fetch_assoc();
+    $batchName = $batch['batch_name'];
+
+    // Fetch students for allocation based on program_id and batch_id from student_allocations table
+    $studentQuery = "
+        SELECT sa.*, osd.* 
+        FROM student_allocations sa
+        JOIN old_student_db osd ON sa.student_id = osd.id
+        WHERE sa.program_id = ? AND sa.batch_id = ? AND osd.allocate = ''
+        ";
+    $stmt = $conn->prepare($studentQuery);
+    $stmt->bind_param("ii", $program_id, $batch_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Fetching the results
+    $students = [];
+    while ($row = $result->fetch_assoc()) {
+        $students[] = $row;
+    }
+
+
+    // Proceed if students are available for allocation
+    if (!empty($students)) {
+        // Fetch checkers
+        $checkerQuery = "SELECT * FROM checkers";
+        $checkerResult = mysqli_query($conn, $checkerQuery);
+        $checkers = [];
+        while ($checker = mysqli_fetch_assoc($checkerResult)) {
+            $checkers[] = $checker;
+        }
+
+        shuffle($students); // Shuffle student order
+        shuffle($checkers); // Shuffle checker order
+
+        // Allocate students to checkers and group them
+        $checkerIndex = 0;
+        $groupedAllocations = [];
+
+        // foreach ($students as $student) {
+        //     $checkerId = $checkers[$checkerIndex]['id'];
+        //     $studentId = $student['id'];
+        //     $studentRegId = $student['student_id'];
+
+        //     // Insert the allocation into allocate_checker table
+        //     $allocateQuery = "INSERT INTO allocate_checker (student_id, student_reg_id, checker_id, batch_id, created_at) 
+        //                         VALUES (?, ?, ?, ?, NOW())";
+        //     $stmt = $conn->prepare($allocateQuery);
+        //     $stmt->bind_param("iiii", $studentId, $studentRegId, $checkerId, $batch_id);
+        //     if ($stmt->execute()) {
+        //         // Update student's allocation status
+        //         $updateStudentQuery = "UPDATE old_student_db SET allocate = 'allocated' WHERE id = ?";
+        //         $stmt = $conn->prepare($updateStudentQuery);
+        //         $stmt->bind_param("i", $studentId);
+        //         $stmt->execute();
+
+        //         // Add student to the checker group for email
+        //         $groupedAllocations[$checkerId][] = $student;
+        //     }
+
+        //     // Move to next checker
+        //     $checkerIndex = ($checkerIndex + 1) % count($checkers);
+        // }
+        foreach ($students as $student) {
+            // Assuming $student['id'] is the correct student ID from old_student_db
+            $checkerId = $checkers[$checkerIndex]['id'];
+            $studentId = $student['id'];  // The student ID from old_student_db (check the correct field name)
+            $studentRegId = $student['student_id'];  // This might be different from $studentId
+        
+            // Insert the allocation into the allocate_checker table
+            $allocateQuery = "INSERT INTO allocate_checker (student_id, student_reg_id, checker_id, batch_id, created_at) 
+                                VALUES (?, ?, ?, ?, NOW())";
+            $stmt = $conn->prepare($allocateQuery);
+            $stmt->bind_param("iiii", $studentId, $studentRegId, $checkerId, $batch_id);
+            if ($stmt->execute()) {
+                // Update the student's allocation status in the old_student_db table
+                $updateStudentQuery = "UPDATE old_student_db SET allocate = 'allocated' WHERE id = ?";
+                $stmt = $conn->prepare($updateStudentQuery);
+                $stmt->bind_param("i", $studentId); // Use the correct student ID here
+                $stmt->execute();
+        
+                // Add student to the checker group for email
+                $groupedAllocations[$checkerId][] = $student;
+            }
+        
+            // Move to the next checker
+            $checkerIndex = ($checkerIndex + 1) % count($checkers);
+        }
+        
+
+        // Now, send one email per checker with the list of students assigned to them
+        foreach ($groupedAllocations as $checkerId => $students) {
+            sendGroupedAllocationEmail($checkerId, $students, $programName, $batchName); // Pass program and batch names
+        }
+
+        echo "<script>alert('Students successfully allocated to checkers and emails sent.');</script>";
+    } else {
+        echo "<script>alert('No unallocated students found for the selected program and batch.');</script>";
+    }
+}
+
+// Function to send grouped email to checker
+function sendGroupedAllocationEmail($checkerId, $students, $programName, $batchName)
+{
+    global $conn;
+
+    // Fetch checker details
+    $checkerQuery = "SELECT checker_name, checker_email FROM checkers WHERE id = ?";
+    $stmt = $conn->prepare($checkerQuery);
+    $stmt->bind_param("i", $checkerId);
+    $stmt->execute();
+    $checker = $stmt->get_result()->fetch_assoc();
+
+    // Prepare student details for email
+    $studentList = "";
+    foreach ($students as $student) {
+        $studentList .= "<tr>
+                            <td>{$student['student_id']}</td>
+                            <td>{$student['name']}</td>
+                            <td>{$student['bms_email']}</td>
+                          </tr>";
+    }
+
+    // Send email using PHPMailer
+    $mail = new PHPMailer(true);
+    try {
+        $mail->isSMTP();
+        $mail->Host = 'mail.graduatejob.lk';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'noreply@graduatejob.lk';
+        $mail->Password = 'Hasni@2024'; // Use your app password here
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+
+        $mail->setFrom('noreply@graduatejob.lk', 'GraduateJob');
+        $mail->addAddress($checker['checker_email'], $checker['checker_name']);
+        $mail->isHTML(true);
+        $mail->Subject = "Student Allocation Notification";
+        $mail->Body = "
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    margin: 20px;
+                    color: #333;
+                }
+                table {
+                    border-collapse: collapse;
+                    width: 100%;
+                    margin-top: 20px;
+                }
+                th, td {
+                    border: 1px solid #dddddd;
+                    text-align: left;
+                    padding: 12px;
+                }
+                th {
+                    background-color: #4CAF50;
+                    color: white;
+                }
+                tr:nth-child(even) {
+                    background-color: #f9f9f9;
+                }
+                tr:hover {
+                    background-color: #f1f1f1;
+                }
+                p {
+                    margin: 10px 0;
+                }
+                strong {
+                    color: #333;
+                }
+            </style>
+        </head>
+        <body>
+            <p>Dear {$checker['checker_name']},</p>
+            <p>You have been allocated the following students in the program <strong>{$programName}</strong> under the batch <strong>{$batchName}</strong>:</p>
+            <table>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Name</th>
+                    <th>BMS Email</th>
+                </tr>
+                $studentList
+            </table>
+            <p>Please complete the allocation process as soon as possible.</p>
+            <p>Best regards,</p>
+            <p>GraduateJob Team</p>
+        </body>
+        </html>
+        ";
+        $mail->send();
+    } catch (Exception $e) {
+        echo "Error sending email: " . $mail->ErrorInfo;
+    }
+}
+
+
 ?>
 
 
