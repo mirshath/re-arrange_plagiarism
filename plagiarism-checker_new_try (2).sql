@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2024 at 06:31 AM
+-- Generation Time: Dec 11, 2024 at 07:14 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `re-arrange_plagiarism`
+-- Database: `plagiarism-checker_new_try`
 --
 
 -- --------------------------------------------------------
@@ -67,9 +67,10 @@ CREATE TABLE `allocate_checker` (
 --
 
 INSERT INTO `allocate_checker` (`id`, `student_id`, `student_reg_id`, `checker_id`, `batch_id`, `submitted_status`, `display`, `created_at`) VALUES
-(597, 187, '60001', 13, 2, 'not_yet', 0, '2024-12-12 08:42:38'),
-(598, 188, '60002', 14, 2, 'not_yet', 0, '2024-12-12 08:42:38'),
-(599, 186, '60000', 12, 2, 'submitted', 0, '2024-12-12 08:42:38');
+(593, 185, '3210', 13, 3, 'not_yet', 0, '2024-12-11 23:38:32'),
+(594, 184, '3213', 12, 3, 'not_yet', 0, '2024-12-11 23:38:32'),
+(595, 182, '9879', 14, 3, 'not_yet', 0, '2024-12-11 23:38:32'),
+(596, 183, '6546', 13, 3, 'not_yet', 0, '2024-12-11 23:38:32');
 
 -- --------------------------------------------------------
 
@@ -133,8 +134,7 @@ CREATE TABLE `module_attempt` (
 --
 
 INSERT INTO `module_attempt` (`id`, `student_id`, `module_id`, `attempts`, `created_at`) VALUES
-(46, 9879, 10, 3, '2024-12-11 22:58:41'),
-(47, 60000, 10, 1, '2024-12-12 09:13:50');
+(46, 9879, 10, 3, '2024-12-11 22:58:41');
 
 -- --------------------------------------------------------
 
@@ -192,9 +192,10 @@ INSERT INTO `old_student_db` (`id`, `student_id`, `name`, `DOB`, `program_id`, `
 (12, '2007', 'BBBB', '2024-10-01', 2, 4, 'yournumplz@gmail.com', 'bb@bms.ac.lk', '0777123456', 'allocated'),
 (13, '2008', 'CCC', '2024-10-01', 2, 4, 'yournumplz@gmail.com', 'cccc@bms.ac.lk', '0777123456', 'allocated'),
 (14, '2009', 'DDDD', '2024-10-01', 2, 4, 'yournumplz@gmail.com', 'DDDD@bms.ac.lk', '0777123456', 'allocated'),
-(186, '60000', 'St_Test_1', '2024-10-01', 1, 2, 'st1@gmail.com', 'st11@gmail.com', '766158014', 'allocated'),
-(187, '60001', 'St_Test_2', '0000-00-00', 1, 2, 'st2@gmail.com', 'st22@gmail.com', '766158014', 'allocated'),
-(188, '60002', 'St_Test_3', '0000-00-00', 1, 2, 'st3@gmail.com', 'st33@gmail.com', '766158014', 'allocated');
+(182, '9879', 'Mirshath Mohamed', '0000-00-00', 2, 3, 's3@gmail.com', 'sdanb44@gmail.com', '766158014', 'allocated'),
+(183, '6546', 'dddd', '0000-00-00', 2, 3, 's4@gmail.com', 's43@gmail.comsbn', '766158014', 'allocated'),
+(184, '3213', 'ggggg', '0000-00-00', 2, 3, 's5@gmail.com', 's55@gmail.comhja', '766158014', 'allocated'),
+(185, '3210', 'kkkkk', '0000-00-00', 2, 3, 'skkkk@gmail.com', 's66kkk@gmail.comluyw', '766158015', 'allocated');
 
 -- --------------------------------------------------------
 
@@ -250,20 +251,6 @@ CREATE TABLE `std_crs_details` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `student_allocations`
---
-
-CREATE TABLE `student_allocations` (
-  `id` int(11) NOT NULL,
-  `student_id` int(11) NOT NULL,
-  `program_id` int(11) NOT NULL,
-  `batch_id` int(11) NOT NULL,
-  `module_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `student_submitted_form`
 --
 
@@ -295,8 +282,7 @@ CREATE TABLE `student_submitted_form` (
 --
 
 INSERT INTO `student_submitted_form` (`id`, `student_id`, `date_of_birth`, `name_full`, `bms_email`, `phone_number`, `program_id`, `batch_id`, `module_id`, `Documents`, `Documents_1`, `Documents_2`, `doc_status`, `attempt`, `submitted_at`, `submitted_at_2nd_time`, `submitted_at_3rd_time`, `checker_id`, `checker_downlaoded_at`, `checked_status`) VALUES
-(160, '9879', '2024-12-11', 'Mirshath Mohamed', 'sdanb44@gmail.com', '766158014', 1, 1, 10, 'Resume Template.docx', 'Resume Template.docx', 'Resume Template.docx', 'submitted', 3, '2024-12-11 22:58:41', '2024-12-11 23:25:29', '2024-12-11 23:30:21', 12, '2024-12-11 23:20:21', 'pending'),
-(161, '60000', '2024-10-01', 'St_Test_1', 'st11@gmail.com', '766158014', 1, 1, 10, 'Demo.docx', NULL, NULL, 'submitted', 1, '2024-12-12 09:13:50', NULL, NULL, 12, NULL, 'pending');
+(160, '9879', '2024-12-11', 'Mirshath Mohamed', 'sdanb44@gmail.com', '766158014', 1, 1, 10, 'Resume Template.docx', 'Resume Template.docx', 'Resume Template.docx', 'submitted', 3, '2024-12-11 22:58:41', '2024-12-11 23:25:29', '2024-12-11 23:30:21', 12, '2024-12-11 23:20:21', 'pending');
 
 --
 -- Indexes for dumped tables
@@ -378,12 +364,6 @@ ALTER TABLE `std_crs_details`
   ADD KEY `batch_id` (`batch_id`);
 
 --
--- Indexes for table `student_allocations`
---
-ALTER TABLE `student_allocations`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `student_submitted_form`
 --
 ALTER TABLE `student_submitted_form`
@@ -403,7 +383,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `allocate_checker`
 --
 ALTER TABLE `allocate_checker`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=600;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=597;
 
 --
 -- AUTO_INCREMENT for table `batch_table`
@@ -421,7 +401,7 @@ ALTER TABLE `checkers`
 -- AUTO_INCREMENT for table `module_attempt`
 --
 ALTER TABLE `module_attempt`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `module_table`
@@ -433,7 +413,7 @@ ALTER TABLE `module_table`
 -- AUTO_INCREMENT for table `old_student_db`
 --
 ALTER TABLE `old_student_db`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=189;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=186;
 
 --
 -- AUTO_INCREMENT for table `portal`
@@ -454,16 +434,10 @@ ALTER TABLE `std_crs_details`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `student_allocations`
---
-ALTER TABLE `student_allocations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `student_submitted_form`
 --
 ALTER TABLE `student_submitted_form`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=162;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
 
 --
 -- Constraints for dumped tables

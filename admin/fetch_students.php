@@ -18,9 +18,11 @@ if (isset($_POST['checker_id'])) {
               JOIN 
                 old_student_db s ON ac.student_id = s.id
               JOIN 
-                program_table p ON s.program_id = p.id
+                student_allocations sa ON s.id = sa.student_id
               JOIN 
-                batch_table b ON s.batch_id = b.id
+                program_table p ON sa.program_id = p.id
+              JOIN 
+                batch_table b ON sa.batch_id = b.id
               WHERE 
                 ac.checker_id = ?
               ORDER BY 
@@ -78,3 +80,4 @@ if (isset($_POST['checker_id'])) {
 
     $stmt->close();
 }
+?>

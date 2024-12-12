@@ -25,4 +25,3 @@ if (isset($_POST['portal_status'])) {
 }
 
 $conn->close();
-?>
