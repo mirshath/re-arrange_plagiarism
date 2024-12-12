@@ -26,9 +26,7 @@ $sql = "SELECT
     p.program_name,
     b.batch_name
 FROM 
-    allocate_checker ac
-JOIN 
-    old_student_db s ON ac.student_id = s.id
+    allocate_checker ac, 
 JOIN 
     student_allocations sa ON ac.student_id = sa.student_id
 JOIN 
@@ -54,7 +52,6 @@ while ($row = $result->fetch_assoc()) {
     $programs[$program_name][$batch_name][] = $row;
 }
 ?>
-
 
 <!-- Page Wrapper -->
 <div id="wrapper">
