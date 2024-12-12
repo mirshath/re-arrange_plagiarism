@@ -19,6 +19,11 @@ $("#d_hide").hide(); // Hide alert message
 $("#d_hide2").hide(); // Hide alert message
 $("#submitBtn").hide(); // Hide alert message
 
+
+
+
+
+// ----------------------- old 
 $("#student_id, #dob").on("blur", function () {
   var student_id = $("#student_id").val();
   var dob = $("#dob").val();
@@ -93,6 +98,9 @@ $("#student_id, #dob").on("blur", function () {
     // $('#name_in_full, #address, #address_2, #city, #email_address, #phone_no, #professional, #submitBtn').prop('disabled', true);
   }
 });
+
+
+
 
 // ------------------ modlue working --------------
 // Event listener for module dropdown
