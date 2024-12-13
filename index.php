@@ -36,22 +36,61 @@ if ($result && $result->num_rows > 0) {
                     <form id="studentForm" enctype="multipart/form-data">
                         <div class="card lft_border">
                             <div class="card-body shadow">
-                                <div class="mb-2">
-                                    <label for="student_id" class="form-label">Student BMS ID <span style="color:red;">*</span></label>
-                                    <input class="form-control" type="text" id="student_id" name="student_id" required placeholder="Enter your Student ID">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-2">
+                                                            <label for="student_id" class="form-label">Student BMS ID <span style="color:red;">*</span></label>
+                                                            <!-- <input class="form-control" type="text" id="student_id" name="student_id" required placeholder="Enter your Student ID"> -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="mb-2">
+                                                            <!-- <label for="student_id" class="form-label">Student BMS ID <span style="color:red;">*</span></label> -->
+                                                            <input class="form-control" type="text" id="student_id" name="student_id" required placeholder="Enter your Student ID">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-2">
+                                                            <label for="dob" class="form-label">DOB <span style="color:red;">*</span></label>
+                                                            <!-- <input class="form-control" type="date" id="dob" name="dob" required> -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="mb-2">
+                                                            <!-- <label for="dob" class="form-label">Date of Birth <span style="color:red;">*</span></label> -->
+                                                            <input class="form-control" type="date" id="dob" name="dob" required>
+                                                        </div>
+                                                        <div id="student_id_alert" class="alert alert-danger mt-2" style="display: none;">
+                                                            <strong>Warning!</strong> Please Check Your Student ID and DOB.
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="mb-2">
-                                    <label for="dob" class="form-label">Date of Birth <span style="color:red;">*</span></label>
-                                    <input class="form-control" type="date" id="dob" name="dob" required>
-                                </div>
-                                <div id="student_id_alert" class="alert alert-danger mt-2" style="display: none;">
-                                    <strong>Warning!</strong> Please Check Your Student ID and DOB.
-                                </div>
-                                <button type="button" class="btn btn-primary" id="next_button">
+
+
+                                <button type="button" class="btn btn-primary float-end" id="next_button">
                                     Next <i class="fas fa-arrow-right"></i>
                                 </button>
+
                             </div>
                         </div>
+
+
+
                         <div class="card mt-2 lft_border" id="d_hide" style="display: none;">
                             <div class="card-body shadow">
                                 <p>Welcome! Your details are verified.</p>
@@ -80,7 +119,7 @@ if ($result && $result->num_rows > 0) {
                                         <div class="row">
                                             <div class="col">
                                                 <div class="mb-2">
-                                                    <label for="bms_email_address" class="form-label">BMS Email Address <span style="color:red;">*</span></label>
+                                                    <label for="bms_email_address" class="form-label">BMS Email <span style="color:red;">*</span></label>
                                                     <!-- <input class="form-control" id="bms_email_address" name="bms_email_address" readonly> -->
                                                 </div>
                                             </div>
@@ -96,7 +135,7 @@ if ($result && $result->num_rows > 0) {
                                         <div class="row">
                                             <div class="col">
                                                 <div class="mb-2">
-                                                    <label for="phone_no" class="form-label">Phone Number</label>
+                                                    <label for="phone_no" class="form-label">Phone No</label>
                                                     <!-- <input class="form-control" id="phone_no" name="phone_no" readonly> -->
                                                 </div>
                                             </div>
