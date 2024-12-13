@@ -444,8 +444,8 @@ if ($result && $result->num_rows > 0) {
                                         alert("You have reached the maximum number of attempts .");
                                         $("#uploadSection").hide();
                                         setTimeout(function () {
-                        location.reload();
-                    }, 1000);
+                                            location.reload();
+                                        }, 000);
 
                                     }
                                 } else {
@@ -473,95 +473,7 @@ if ($result && $result->num_rows > 0) {
         }
     });
 
-    // Handle form submission with AJAX
-    // $("#studentForm").on("submit", function (e) {
-    //     e.preventDefault();
 
-    //     console.log("Form submission started.");
-
-    //     var formData = new FormData(this);
-
-    //     $.ajax({
-    //         url: "insert_student.php",
-    //         method: "POST",
-    //         data: formData,
-    //         contentType: false,
-    //         processData: false,
-    //         success: function (response) {
-    //             console.log("AJAX request complete, hiding preloader.");
-    //             $("#preloader").hide();
-
-    //             if (response.includes("successful")) {
-    //                 $("#successModal").modal("show");
-    //                 $("#studentForm")[0].reset();
-    //                 setTimeout(function () {
-    //                     window.location.reload(); // Refresh the page after a short delay
-    //                 }, 2000);
-    //             } else if (
-    //                 response === "Please Select a module." ||
-    //                 response === "Please upload a document."
-    //             ) {
-    //                 $("#errorModal").find(".modal-body").html(response);
-    //                 $("#errorModal").modal("show");
-    //                 setTimeout(function () {
-    //                     window.location.reload(); // Refresh the page after a short delay
-    //                 }, 2000);
-    //             } else {
-    //                 alert(response);
-    //             }
-    //         },
-    //         error: function (xhr, status, error) {
-    //             console.log("Error in AJAX request, hiding preloader.");
-    //             $("#preloader").hide();
-    //             alert("An error occurred: " + error);
-    //         },
-    //     });
-    // });
-
-
-
-    // // -------- new insert student ------------
-    // $("#studentForm").on("submit", function (e) {
-    //     e.preventDefault();
-
-    //     console.log("Form submission started.");
-
-    //     var formData = new FormData(this);
-
-    //     $.ajax({
-    //         url: "insert_student.php",
-    //         method: "POST",
-    //         data: formData,
-    //         contentType: false,
-    //         processData: false,
-    //         beforeSend: function () {
-    //             console.log("Showing preloader...");
-    //             $("#preloader").show();
-    //         },
-    //         success: function (response) {
-    //             console.log("AJAX request completed.");
-    //             $("#preloader").hide();
-
-    //             if (response.includes("successful")) {
-    //                 $("#successModal").modal("show");
-    //                 $("#studentForm")[0].reset();
-    //                 setTimeout(function () {
-    //                     window.location.reload();
-    //                 }, 2000);
-    //             } else if (response.includes("Please Select a module.") || response.includes("Please upload a document.")) {
-    //                 $("#errorModal").find(".modal-body").html(response);
-    //                 $("#errorModal").modal("show");
-    //             } else {
-    //                 alert(response);
-    //             }
-    //         },
-    //         error: function (xhr, status, error) {
-    //             console.log("Error in AJAX request.");
-    //             $("#preloader").hide();
-    //             alert("An error occurred: " + error);
-    //         },
-    //     });
-    // });
 
 
     // -------- new insert student ------------
