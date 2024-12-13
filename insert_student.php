@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
          FROM allocate_checker ac
          INNER JOIN checkers ch ON ac.checker_id = ch.id
          INNER JOIN old_student_db osd ON ac.student_id = osd.id
-         WHERE ac.student_id  = ? 
+         WHERE ac.student_reg_id  = ? 
          LIMIT 1
          ";
     $stmt = mysqli_prepare($conn, $checkerQuery);

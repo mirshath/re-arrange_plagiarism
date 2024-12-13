@@ -126,7 +126,7 @@ function allocateStudents($program_id, $batch_id)
 
     // Fetch students for allocation based on program_id and batch_id from student_allocations table
     $studentQuery = "
-        SELECT sa.*, osd.* 
+        SELECT sa.*, osd.*, osd.student_id as student_reg_id 
         FROM student_allocations sa
         JOIN old_student_db osd ON sa.student_id = osd.id
         WHERE sa.program_id = ? AND sa.batch_id = ? AND osd.allocate = ''
@@ -160,35 +160,12 @@ function allocateStudents($program_id, $batch_id)
         $checkerIndex = 0;
         $groupedAllocations = [];
 
-        // foreach ($students as $student) {
-        //     $checkerId = $checkers[$checkerIndex]['id'];
-        //     $studentId = $student['id'];
-        //     $studentRegId = $student['student_id'];
-
-        //     // Insert the allocation into allocate_checker table
-        //     $allocateQuery = "INSERT INTO allocate_checker (student_id, student_reg_id, checker_id, batch_id, created_at) 
-        //                         VALUES (?, ?, ?, ?, NOW())";
-        //     $stmt = $conn->prepare($allocateQuery);
-        //     $stmt->bind_param("iiii", $studentId, $studentRegId, $checkerId, $batch_id);
-        //     if ($stmt->execute()) {
-        //         // Update student's allocation status
-        //         $updateStudentQuery = "UPDATE old_student_db SET allocate = 'allocated' WHERE id = ?";
-        //         $stmt = $conn->prepare($updateStudentQuery);
-        //         $stmt->bind_param("i", $studentId);
-        //         $stmt->execute();
-
-        //         // Add student to the checker group for email
-        //         $groupedAllocations[$checkerId][] = $student;
-        //     }
-
-        //     // Move to next checker
-        //     $checkerIndex = ($checkerIndex + 1) % count($checkers);
-        // }
+       
         foreach ($students as $student) {
             // Assuming $student['id'] is the correct student ID from old_student_db
             $checkerId = $checkers[$checkerIndex]['id'];
             $studentId = $student['id'];  // The student ID from old_student_db (check the correct field name)
-            $studentRegId = $student['student_id'];  // This might be different from $studentId
+            $studentRegId = $student['student_reg_id'];  // This might be different from $studentId
         
             // Insert the allocation into the allocate_checker table
             $allocateQuery = "INSERT INTO allocate_checker (student_id, student_reg_id, checker_id, batch_id, created_at) 
