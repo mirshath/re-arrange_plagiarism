@@ -42,7 +42,7 @@ if ($result && $result->num_rows > 0) {
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="row">
-                                                    <div class="col">
+                                                    <div class="col-md-4">
                                                         <div class="mb-2">
                                                             <label for="student_id" class="form-label">Student BMS ID <span style="color:red;">*</span></label>
                                                             <!-- <input class="form-control" type="text" id="student_id" name="student_id" required placeholder="Enter your Student ID"> -->
@@ -59,7 +59,7 @@ if ($result && $result->num_rows > 0) {
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="row">
-                                                    <div class="col">
+                                                    <div class="col-md-4">
                                                         <div class="mb-2">
                                                             <label for="dob" class="form-label">DOB <span style="color:red;">*</span></label>
                                                             <!-- <input class="form-control" type="date" id="dob" name="dob" required> -->
@@ -99,7 +99,7 @@ if ($result && $result->num_rows > 0) {
                                     <div class="col-md-12">
                                         <!-- 1st row  -->
                                         <div class="row">
-                                            <div class="col">
+                                            <div class="col-md-4">
 
                                                 <div class="mb-2">
                                                     <label for="name_in_full" class="form-label">Name in Full <span style="color:red;">*</span></label>
@@ -117,7 +117,7 @@ if ($result && $result->num_rows > 0) {
 
                                         <!-- 2 row  -->
                                         <div class="row">
-                                            <div class="col">
+                                            <div class="col-md-4">
                                                 <div class="mb-2">
                                                     <label for="bms_email_address" class="form-label">BMS Email <span style="color:red;">*</span></label>
                                                     <!-- <input class="form-control" id="bms_email_address" name="bms_email_address" readonly> -->
@@ -133,7 +133,7 @@ if ($result && $result->num_rows > 0) {
 
                                         <!-- 3 row  -->
                                         <div class="row">
-                                            <div class="col">
+                                            <div class="col-md-4">
                                                 <div class="mb-2">
                                                     <label for="phone_no" class="form-label">Phone No</label>
                                                     <!-- <input class="form-control" id="phone_no" name="phone_no" readonly> -->
@@ -149,7 +149,7 @@ if ($result && $result->num_rows > 0) {
 
                                         <!-- 4 row  -->
                                         <div class="row">
-                                            <div class="col">
+                                            <div class="col-md-4">
                                                 <div class="mb-2">
                                                     <label for="program_id" class="form-label">Program</label>
                                                     <!-- <input class="form-control" id="program_id" name="program_id" readonly> -->
@@ -165,7 +165,7 @@ if ($result && $result->num_rows > 0) {
 
                                         <!-- 5 row  -->
                                         <div class="row">
-                                            <div class="col">
+                                            <div class="col-md-4">
                                                 <div class="mb-2">
                                                     <label for="batch_id" class="form-label">Batch</label>
                                                     <!-- <input class="form-control" id="batch_name" name="batch_name" readonly> -->
@@ -183,7 +183,7 @@ if ($result && $result->num_rows > 0) {
 
                                         <!-- 6 row  -->
                                         <div class="row">
-                                            <div class="col">
+                                            <div class="col-md-4">
                                                 <div class="mb-2">
                                                     <label for="module_id" class="form-label">Module</label>
 
@@ -198,6 +198,36 @@ if ($result && $result->num_rows > 0) {
                                                 </div>
                                             </div>
                                         </div>
+
+
+
+                                        <!-- ---------  -->
+                                        <div class="mb-2" id="mdl_deadline" style="display: none;">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="module_deadline" class="form-label">Module Deadlines</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" id="module_deadline" class="form-control" name="module_deadline" readonly>
+                                                    <!-- Error message container -->
+                                                    <div id="deadlineError" style="color: red; display: none; margin-top: 5px;">The Module deadline has been expired</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-2" id="uploadSection" style="display: none;">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="documentUpload" class="form-label">Upload Document</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="file" id="documentUpload" name="document" class="form-control">
+                                                    <!-- Error message container -->
+                                                    <div id="fileError" style="color: red; display: none; margin-top: 5px;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
 
                                     </div>
                                 </div>
@@ -290,4 +320,85 @@ if ($result && $result->num_rows > 0) {
             }
         });
     }
+
+
+    // ---------------------------------------------------------------------- 
+
+    // ------------------ modlue working --------------
+    // Event listener for module dropdown
+    // Event listener for module dropdown
+    $("#module_id").on("change", function() {
+        var module_id = $(this).val();
+
+        if (module_id) {
+            $.ajax({
+                url: "Fetching-upmb/fetch_module_deadline.php", // New PHP file to get deadline
+                method: "POST",
+                dataType: "json",
+                data: {
+                    module_id: module_id
+                },
+
+                success: function(response) {
+                    if (response.status === "success") {
+                        // Set deadline and make the input read-only
+                        $("#module_deadline").val(response.deadline).prop("readonly", true);
+
+                        // Show the module deadline section
+                        $("#mdl_deadline").show();
+
+                        // Parse the deadline date and get today’s date
+                        var deadlineDate = new Date(response.deadline);
+                        var today = new Date();
+
+                        // Check if the deadline is before or on today's date
+                        if (deadlineDate >= today) {
+                            // Show the upload section if the deadline is in the past or today
+                            $("#uploadSection").show();
+                        } else {
+                            // Hide the upload section if the deadline is in the future
+                            $("#uploadSection").hide();
+                            $("#deadlineError").show();
+
+                        }
+
+                        // Fetch the number of attempts made for the module
+                        $.ajax({
+                            url: "Fetching-upmb/check_module_attempts.php",
+                            method: "POST",
+                            data: {
+                                module_id: module_id,
+                                student_id: $("#student_id").val() // Get student_id from the form
+                            },
+                            dataType: "json", // Specify JSON dataType
+                            success: function(response) {
+                                if (response.success) {
+                                    if (response.ma_attempts >= 3) {
+                                        alert("You have reached the maximum number of attempts.");
+                                        $("#uploadSection").hide();
+                                    }
+                                } else {
+                                    console.error("Failed to fetch module attempts:", response.message);
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                console.error("Error fetching module attempts:", error);
+                            }
+                        });
+                    } else {
+                        // Hide module deadline section and upload section if no deadline is found
+                        $("#mdl_deadline").hide();
+                        $("#uploadSection").hide();
+                    }
+                },
+                error: function() {
+                    alert("Error fetching module deadline. Please try again.");
+                }
+            });
+        } else {
+            // Clear the deadline field if no module is selected
+            $("#mdl_deadline").hide();
+            $("#uploadSection").hide();
+        }
+    });
 </script>
