@@ -55,35 +55,113 @@ if ($result && $result->num_rows > 0) {
                         <div class="card mt-2 lft_border" id="d_hide" style="display: none;">
                             <div class="card-body shadow">
                                 <p>Welcome! Your details are verified.</p>
-                                <div class="mb-2">
-                                    <label for="name_in_full" class="form-label">Name in Full <span style="color:red;">*</span></label>
-                                    <input class="form-control" id="name_in_full" name="name_in_full" readonly>
-                                </div>
-                                <div class="mb-2">
-                                    <label for="bms_email_address" class="form-label">BMS Email Address <span style="color:red;">*</span></label>
-                                    <input class="form-control" id="bms_email_address" name="bms_email_address" readonly>
-                                </div>
-                                <div class="mb-2">
-                                    <label for="phone_no" class="form-label">Phone Number</label>
-                                    <input class="form-control" id="phone_no" name="phone_no" readonly>
-                                </div>
-                                <div class="mb-2">
-                                    <label for="program_id" class="form-label">Program</label>
-                                    <input class="form-control" id="program_id" name="program_id" readonly>
-                                </div>
-                                <div class="mb-2">
-                                    <label for="batch_id" class="form-label">Batch</label>
-                                    <input class="form-control" id="batch_name" name="batch_name" readonly>
-                                    <input type="hidden" class="form-control" id="bacth_id_no" name="bacth_id_no" readonly>
-                                </div>
-                                <div class="mb-2" id="module_section" style="display: none;">
-                                    <label for="module_id" class="form-label">Module</label>
-                                    <select class="form-control" id="module_id" name="module_id" disabled>
-                                        <option value="">Select Module</option>
-                                    </select>
-                                </div>
 
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <!-- 1st row  -->
+                                        <div class="row">
+                                            <div class="col">
 
+                                                <div class="mb-2">
+                                                    <label for="name_in_full" class="form-label">Name in Full <span style="color:red;">*</span></label>
+                                                    <!-- <input class="form-control" id="name_in_full" name="name_in_full" readonly> -->
+                                                </div>
+                                            </div>
+                                            <div class="col">
+
+                                                <div class="mb-2">
+                                                    <!-- <label for="name_in_full" class="form-label">Name in Full <span style="color:red;">*</span></label> -->
+                                                    <input class="form-control" id="name_in_full" name="name_in_full" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 2 row  -->
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="mb-2">
+                                                    <label for="bms_email_address" class="form-label">BMS Email Address <span style="color:red;">*</span></label>
+                                                    <!-- <input class="form-control" id="bms_email_address" name="bms_email_address" readonly> -->
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="mb-2">
+                                                    <!-- <label for="bms_email_address" class="form-label">BMS Email Address <span style="color:red;">*</span></label> -->
+                                                    <input class="form-control" id="bms_email_address" name="bms_email_address" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 3 row  -->
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="mb-2">
+                                                    <label for="phone_no" class="form-label">Phone Number</label>
+                                                    <!-- <input class="form-control" id="phone_no" name="phone_no" readonly> -->
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="mb-2">
+                                                    <!-- <label for="phone_no" class="form-label">Phone Number</label> -->
+                                                    <input class="form-control" id="phone_no" name="phone_no" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 4 row  -->
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="mb-2">
+                                                    <label for="program_id" class="form-label">Program</label>
+                                                    <!-- <input class="form-control" id="program_id" name="program_id" readonly> -->
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="mb-2">
+                                                    <!-- <label for="program_id" class="form-label">Program</label> -->
+                                                    <input class="form-control" id="program_id" name="program_id" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 5 row  -->
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="mb-2">
+                                                    <label for="batch_id" class="form-label">Batch</label>
+                                                    <!-- <input class="form-control" id="batch_name" name="batch_name" readonly> -->
+                                                    <!-- <input type="hidden" class="form-control" id="bacth_id_no" name="bacth_id_no" readonly> -->
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="mb-2">
+                                                    <!-- <label for="batch_id" class="form-label">Batch</label> -->
+                                                    <input class="form-control" id="batch_name" name="batch_name" readonly>
+                                                    <input type="hidden" class="form-control" id="bacth_id_no" name="bacth_id_no" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 6 row  -->
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="mb-2">
+                                                    <label for="module_id" class="form-label">Module</label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="mb-2" id="module_section" style="display: none;">
+
+                                                    <select class="form-control" id="module_id" name="module_id" disabled>
+                                                        <option value="">Select Module</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -93,90 +171,9 @@ if ($result && $result->num_rows > 0) {
     </div>
 <?php endif; ?>
 
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    // $("#student_id, #dob").on("blur", function() {
-    //     var studentId = $("#student_id").val().trim();
-    //     var dob = $("#dob").val().trim();
-
-    //     if (!studentId || !dob) return;
-
-    //     $.ajax({
-    //         url: 'validate_student.php',
-    //         type: 'POST',
-    //         contentType: 'application/json',
-    //         data: JSON.stringify({
-    //             student_id: studentId,
-    //             dob: dob
-    //         }),
-    //         success: function(data) {
-    //             if (data.success) {
-    //                 $('#d_hide').show();
-    //                 $('#student_id_alert').hide();
-    //                 $('#name_in_full').val(data.name);
-    //                 $('#bms_email_address').val(data.email);
-    //                 $('#phone_no').val(data.phone);
-
-    //                 $('#program_id').val(data.program_name);
-    //                 $('#batch_id').val(data.batch_name);
-
-
-
-    //                 // Enable module dropdown after receiving the batch data
-    //                 $('#module_id').prop('disabled', false);
-
-    //                 // Fetch modules based on the batch_id
-    //                 fetchModulesByBatch(data.batch_id);
-
-
-
-    //             } else {
-    //                 $('#student_id_alert').show();
-    //                 $('#d_hide').hide();
-    //                 setTimeout(function() {
-    //                     location.reload();
-    //                 }, 3000);
-    //                 $('#next_button').prop('disabled', true);
-    //                 $('#next_button').html('Refreshing... please wait');
-    //             }
-    //         },
-    //         error: function() {
-    //             alert('Error verifying student. Please try again.');
-    //         }
-    //     });
-    // });
-
-
-
-    // function fetchModulesByBatch(batchId) {
-    //     $.ajax({
-    //         url: 'get_modules_by_batch.php', // Create this new PHP file to fetch modules based on batch_id
-    //         type: 'POST',
-    //         data: {
-    //             batch_id: batchId
-    //         },
-    //         success: function(response) {
-    //             var modulesSelect = $('#module_id');
-    //             modulesSelect.empty(); // Clear existing options
-    //             modulesSelect.append('<option value="">Select Module</option>'); // Default option
-
-    //             if (response.success) {
-    //                 // Populate the module dropdown
-    //                 response.modules.forEach(function(module) {
-    //                     modulesSelect.append('<option value="' + module.id + '">' + module.module_name + '</option>');
-    //                 });
-    //             } else {
-    //                 modulesSelect.append('<option value="">No modules available</option>');
-    //             }
-    //         },
-    //         error: function() {
-    //             alert('Error fetching modules. Please try again.');
-    //         }
-    //     });
-    // }
-
-
-
     $("#student_id, #dob").on("blur", function() {
         var studentId = $("#student_id").val().trim();
         var dob = $("#dob").val().trim();
