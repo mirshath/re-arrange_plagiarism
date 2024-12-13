@@ -15,7 +15,7 @@ if (empty($batch_id)) {
 
 // Query to fetch modules for the selected batch
 $query = "
-    SELECT id, module_name
+    SELECT *
     FROM module_table 
     WHERE batch_id = ? 
 ";
