@@ -20,6 +20,7 @@ if (empty($student_id) || empty($dob)) {
 // Query to get all student details including program, batch, and module details
 $query = "
     SELECT 
+        st.id, 
         st.name, 
         st.bms_email, 
         st.phone_no, 
@@ -51,6 +52,7 @@ if ($stmt) {
     if ($result->num_rows > 0) {
         $student = $result->fetch_assoc();
         $response['success'] = true;
+        $response['id'] = $student['id'];
         $response['name'] = $student['name'];
         $response['email'] = $student['bms_email'];
         $response['phone'] = $student['phone_no'];

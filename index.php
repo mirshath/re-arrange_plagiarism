@@ -245,6 +245,7 @@ if ($result && $result->num_rows > 0) {
                                             </div>
                                         </div>
 
+                                        <input type="hidden" name="std_auto_id" id="std_auto_id">
 
                                         <div class="p-0">
                                             <button type="submit" class="btn btn-primary mt-4 mb-4 w-100"
@@ -332,6 +333,7 @@ if ($result && $result->num_rows > 0) {
                     $('#d_hide').show();
                     $('#student_id_alert').hide();
                     $('#name_in_full').val(data.name);
+                    $('#std_auto_id').val(data.id);
                     $('#bms_email_address').val(data.email);
                     $('#phone_no').val(data.phone);
 
@@ -439,8 +441,12 @@ if ($result && $result->num_rows > 0) {
                             success: function (response) {
                                 if (response.success) {
                                     if (response.ma_attempts >= 3) {
-                                        alert("You have reached the maximum number of attempts.");
+                                        alert("You have reached the maximum number of attempts .");
                                         $("#uploadSection").hide();
+                                        setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+
                                     }
                                 } else {
                                     console.error("Failed to fetch module attempts:", response.message);
