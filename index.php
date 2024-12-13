@@ -31,7 +31,8 @@ if ($result && $result->num_rows > 0) {
     <div class="container mt-5 mb-5">
         <div class="row justify-content-center">
             <div class="col-lg-8 col-md-12 col-12">
-                <img src="./images/PLGERISM.png" alt="Google Form Header Banner" class="img-fluid" style="border-radius:10px 10px 0 0">
+                <img src="./images/PLGERISM.png" alt="Google Form Header Banner" class="img-fluid"
+                    style="border-radius:10px 10px 0 0">
                 <div class="rounded shadow-sm" style="background-color:#ddd3d3c2; padding: 12px;">
                     <form id="studentForm" enctype="multipart/form-data">
                         <div class="card lft_border">
@@ -44,14 +45,17 @@ if ($result && $result->num_rows > 0) {
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div class="mb-2">
-                                                            <label for="student_id" class="form-label">Student BMS ID <span style="color:red;">*</span></label>
+                                                            <label for="student_id" class="form-label">Student BMS ID <span
+                                                                    style="color:red;">*</span></label>
                                                             <!-- <input class="form-control" type="text" id="student_id" name="student_id" required placeholder="Enter your Student ID"> -->
                                                         </div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="mb-2">
                                                             <!-- <label for="student_id" class="form-label">Student BMS ID <span style="color:red;">*</span></label> -->
-                                                            <input class="form-control" type="text" id="student_id" name="student_id" required placeholder="Enter your Student ID">
+                                                            <input class="form-control" type="text" id="student_id"
+                                                                name="student_id" required
+                                                                placeholder="Enter your Student ID">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -61,16 +65,19 @@ if ($result && $result->num_rows > 0) {
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div class="mb-2">
-                                                            <label for="dob" class="form-label">DOB <span style="color:red;">*</span></label>
+                                                            <label for="dob" class="form-label">DOB <span
+                                                                    style="color:red;">*</span></label>
                                                             <!-- <input class="form-control" type="date" id="dob" name="dob" required> -->
                                                         </div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="mb-2">
                                                             <!-- <label for="dob" class="form-label">Date of Birth <span style="color:red;">*</span></label> -->
-                                                            <input class="form-control" type="date" id="dob" name="dob" required>
+                                                            <input class="form-control" type="date" id="dob" name="dob"
+                                                                required>
                                                         </div>
-                                                        <div id="student_id_alert" class="alert alert-danger mt-2" style="display: none;">
+                                                        <div id="student_id_alert" class="alert alert-danger mt-2"
+                                                            style="display: none;">
                                                             <strong>Warning!</strong> Please Check Your Student ID and DOB.
                                                         </div>
                                                     </div>
@@ -102,7 +109,8 @@ if ($result && $result->num_rows > 0) {
                                             <div class="col-md-4">
 
                                                 <div class="mb-2">
-                                                    <label for="name_in_full" class="form-label">Name in Full <span style="color:red;">*</span></label>
+                                                    <label for="name_in_full" class="form-label">Name in Full <span
+                                                            style="color:red;">*</span></label>
                                                     <!-- <input class="form-control" id="name_in_full" name="name_in_full" readonly> -->
                                                 </div>
                                             </div>
@@ -110,7 +118,8 @@ if ($result && $result->num_rows > 0) {
 
                                                 <div class="mb-2">
                                                     <!-- <label for="name_in_full" class="form-label">Name in Full <span style="color:red;">*</span></label> -->
-                                                    <input class="form-control" id="name_in_full" name="name_in_full" readonly>
+                                                    <input class="form-control" id="name_in_full" name="name_in_full"
+                                                        readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -119,14 +128,16 @@ if ($result && $result->num_rows > 0) {
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="mb-2">
-                                                    <label for="bms_email_address" class="form-label">BMS Email <span style="color:red;">*</span></label>
+                                                    <label for="bms_email_address" class="form-label">BMS Email <span
+                                                            style="color:red;">*</span></label>
                                                     <!-- <input class="form-control" id="bms_email_address" name="bms_email_address" readonly> -->
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="mb-2">
                                                     <!-- <label for="bms_email_address" class="form-label">BMS Email Address <span style="color:red;">*</span></label> -->
-                                                    <input class="form-control" id="bms_email_address" name="bms_email_address" readonly>
+                                                    <input class="form-control" id="bms_email_address"
+                                                        name="bms_email_address" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -176,7 +187,8 @@ if ($result && $result->num_rows > 0) {
                                                 <div class="mb-2">
                                                     <!-- <label for="batch_id" class="form-label">Batch</label> -->
                                                     <input class="form-control" id="batch_name" name="batch_name" readonly>
-                                                    <input type="hidden" class="form-control" id="bacth_id_no" name="bacth_id_no" readonly>
+                                                    <input type="hidden" class="form-control" id="bacth_id_no"
+                                                        name="bacth_id_no" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -208,9 +220,12 @@ if ($result && $result->num_rows > 0) {
                                                     <label for="module_deadline" class="form-label">Module Deadlines</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <input type="text" id="module_deadline" class="form-control" name="module_deadline" readonly>
+                                                    <input type="text" id="module_deadline" class="form-control"
+                                                        name="module_deadline" readonly>
                                                     <!-- Error message container -->
-                                                    <div id="deadlineError" style="color: red; display: none; margin-top: 5px;">The Module deadline has been expired</div>
+                                                    <div id="deadlineError"
+                                                        style="color: red; display: none; margin-top: 5px;">The Module
+                                                        deadline has been expired</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -221,14 +236,20 @@ if ($result && $result->num_rows > 0) {
                                                     <label for="documentUpload" class="form-label">Upload Document</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <input type="file" id="documentUpload" name="document" class="form-control">
+                                                    <input type="file" id="documentUpload" name="document"
+                                                        class="form-control">
                                                     <!-- Error message container -->
-                                                    <div id="fileError" style="color: red; display: none; margin-top: 5px;"></div>
+                                                    <div id="fileError" style="color: red; display: none; margin-top: 5px;">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
 
 
+                                        <div class="p-0">
+                                            <button type="submit" class="btn btn-primary mt-4 mb-4 w-100"
+                                                id="submitBtn">Submit</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -242,8 +263,57 @@ if ($result && $result->num_rows > 0) {
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
-    $("#student_id, #dob").on("blur", function() {
+    $(document).ready(function () {
+        $("#submitBtn").hide();
+        const MAX_FILE_SIZE = 50 * 1024; // 50 KB in bytes
+        const ALLOWED_EXTENSIONS = ["doc", "docx"]; // Allowed file extensions
+
+        // Check file size and type on file input change
+        $("#documentUpload").on("change", function () {
+            let file = this.files[0];
+            let isValid = true;
+            let errorMessage = "";
+
+            // Clear any previous error messages
+            $("#fileError").hide().text("");
+
+            if (file) {
+                let fileSize = file.size;
+                let fileName = file.name;
+                let fileExtension = fileName.split(".").pop().toLowerCase(); // Get the file extension
+
+                // Check if file type is allowed
+                if (!ALLOWED_EXTENSIONS.includes(fileExtension)) {
+                    isValid = false;
+                    errorMessage = "Only Word documents (.doc, .docx) are allowed.";
+                }
+
+                // Check if file size exceeds the limit
+                if (fileSize > MAX_FILE_SIZE) {
+                    isValid = false;
+                    errorMessage = "File exceeds the 50 KB size limit. Please reduce the file size.";
+                }
+            }
+
+            // If invalid, show the error message and clear input
+            if (!isValid) {
+                $("#fileError").text(errorMessage).show(); // Show error message
+                $(this).val(""); // Clear the file input
+                $("#submitBtn").hide(); // Hide submit button
+            } else {
+                // If no errors, hide error message and show the submit button
+                $("#fileError").hide();
+                $("#submitBtn").show();
+            }
+        });
+    });
+</script>
+
+
+<script>
+    $("#student_id, #dob").on("blur", function () {
         var studentId = $("#student_id").val().trim();
         var dob = $("#dob").val().trim();
 
@@ -257,7 +327,7 @@ if ($result && $result->num_rows > 0) {
                 student_id: studentId,
                 dob: dob
             }),
-            success: function(data) {
+            success: function (data) {
                 if (data.success) {
                     $('#d_hide').show();
                     $('#student_id_alert').hide();
@@ -269,8 +339,6 @@ if ($result && $result->num_rows > 0) {
                     $('#batch_name').val(data.batch_name);
                     $('#bacth_id_no').val(data.batch_id);
 
-
-
                     // Enable the module dropdown and display the module section
                     $('#module_section').show();
                     $('#module_id').prop('disabled', false);
@@ -281,14 +349,14 @@ if ($result && $result->num_rows > 0) {
                 } else {
                     $('#student_id_alert').show();
                     $('#d_hide').hide();
-                    setTimeout(function() {
+                    setTimeout(function () {
                         location.reload();
                     }, 3000);
                     $('#next_button').prop('disabled', true);
                     $('#next_button').html('Refreshing... please wait');
                 }
             },
-            error: function() {
+            error: function () {
                 alert('Error verifying student. Please try again.');
             }
         });
@@ -301,33 +369,30 @@ if ($result && $result->num_rows > 0) {
             data: {
                 batch_id: batchId
             },
-            success: function(response) {
+            success: function (response) {
                 var modulesSelect = $('#module_id');
                 modulesSelect.empty(); // Clear existing options
                 modulesSelect.append('<option value="">Select Module</option>'); // Default option
 
                 if (response.success) {
                     // Populate the module dropdown with modules fetched from the server
-                    response.modules.forEach(function(module) {
+                    response.modules.forEach(function (module) {
                         modulesSelect.append('<option value="' + module.id + '">' + module.module_name + '</option>');
                     });
                 } else {
                     modulesSelect.append('<option value="">No modules available</option>');
                 }
             },
-            error: function() {
+            error: function () {
                 alert('Error fetching modules. Please try again.');
             }
         });
     }
 
-
     // ---------------------------------------------------------------------- 
 
-    // ------------------ modlue working --------------
     // Event listener for module dropdown
-    // Event listener for module dropdown
-    $("#module_id").on("change", function() {
+    $("#module_id").on("change", function () {
         var module_id = $(this).val();
 
         if (module_id) {
@@ -339,7 +404,7 @@ if ($result && $result->num_rows > 0) {
                     module_id: module_id
                 },
 
-                success: function(response) {
+                success: function (response) {
                     if (response.status === "success") {
                         // Set deadline and make the input read-only
                         $("#module_deadline").val(response.deadline).prop("readonly", true);
@@ -371,7 +436,7 @@ if ($result && $result->num_rows > 0) {
                                 student_id: $("#student_id").val() // Get student_id from the form
                             },
                             dataType: "json", // Specify JSON dataType
-                            success: function(response) {
+                            success: function (response) {
                                 if (response.success) {
                                     if (response.ma_attempts >= 3) {
                                         alert("You have reached the maximum number of attempts.");
@@ -381,7 +446,7 @@ if ($result && $result->num_rows > 0) {
                                     console.error("Failed to fetch module attempts:", response.message);
                                 }
                             },
-                            error: function(xhr, status, error) {
+                            error: function (xhr, status, error) {
                                 console.error("Error fetching module attempts:", error);
                             }
                         });
@@ -391,7 +456,7 @@ if ($result && $result->num_rows > 0) {
                         $("#uploadSection").hide();
                     }
                 },
-                error: function() {
+                error: function () {
                     alert("Error fetching module deadline. Please try again.");
                 }
             });
@@ -401,4 +466,140 @@ if ($result && $result->num_rows > 0) {
             $("#uploadSection").hide();
         }
     });
+
+    // Handle form submission with AJAX
+    // $("#studentForm").on("submit", function (e) {
+    //     e.preventDefault();
+
+    //     console.log("Form submission started.");
+
+    //     var formData = new FormData(this);
+
+    //     $.ajax({
+    //         url: "insert_student.php",
+    //         method: "POST",
+    //         data: formData,
+    //         contentType: false,
+    //         processData: false,
+    //         success: function (response) {
+    //             console.log("AJAX request complete, hiding preloader.");
+    //             $("#preloader").hide();
+
+    //             if (response.includes("successful")) {
+    //                 $("#successModal").modal("show");
+    //                 $("#studentForm")[0].reset();
+    //                 setTimeout(function () {
+    //                     window.location.reload(); // Refresh the page after a short delay
+    //                 }, 2000);
+    //             } else if (
+    //                 response === "Please Select a module." ||
+    //                 response === "Please upload a document."
+    //             ) {
+    //                 $("#errorModal").find(".modal-body").html(response);
+    //                 $("#errorModal").modal("show");
+    //                 setTimeout(function () {
+    //                     window.location.reload(); // Refresh the page after a short delay
+    //                 }, 2000);
+    //             } else {
+    //                 alert(response);
+    //             }
+    //         },
+    //         error: function (xhr, status, error) {
+    //             console.log("Error in AJAX request, hiding preloader.");
+    //             $("#preloader").hide();
+    //             alert("An error occurred: " + error);
+    //         },
+    //     });
+    // });
+
+
+
+    // // -------- new insert student ------------
+    // $("#studentForm").on("submit", function (e) {
+    //     e.preventDefault();
+
+    //     console.log("Form submission started.");
+
+    //     var formData = new FormData(this);
+
+    //     $.ajax({
+    //         url: "insert_student.php",
+    //         method: "POST",
+    //         data: formData,
+    //         contentType: false,
+    //         processData: false,
+    //         beforeSend: function () {
+    //             console.log("Showing preloader...");
+    //             $("#preloader").show();
+    //         },
+    //         success: function (response) {
+    //             console.log("AJAX request completed.");
+    //             $("#preloader").hide();
+
+    //             if (response.includes("successful")) {
+    //                 $("#successModal").modal("show");
+    //                 $("#studentForm")[0].reset();
+    //                 setTimeout(function () {
+    //                     window.location.reload();
+    //                 }, 2000);
+    //             } else if (response.includes("Please Select a module.") || response.includes("Please upload a document.")) {
+    //                 $("#errorModal").find(".modal-body").html(response);
+    //                 $("#errorModal").modal("show");
+    //             } else {
+    //                 alert(response);
+    //             }
+    //         },
+    //         error: function (xhr, status, error) {
+    //             console.log("Error in AJAX request.");
+    //             $("#preloader").hide();
+    //             alert("An error occurred: " + error);
+    //         },
+    //     });
+    // });
+
+
+    // -------- new insert student ------------
+    $("#studentForm").on("submit", function (e) {
+        e.preventDefault();
+
+        console.log("Form submission started.");
+
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: "insert_student.php",
+            method: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                console.log("Showing preloader...");
+                $("#preloader").show();
+            },
+            success: function (response) {
+                console.log("AJAX request completed.");
+                $("#preloader").hide();
+
+                if (response.includes("successful")) {
+                    $("#successModal").modal("show");
+                    $("#studentForm")[0].reset();
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 2000);
+                } else if (response.includes("Please select a module.") || response.includes("Please upload a document.")) {
+                    $("#errorModal").find(".modal-body").html(response);
+                    $("#errorModal").modal("show");
+                } else {
+                    alert(response);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Error in AJAX request.");
+                $("#preloader").hide();
+                alert("An error occurred: " + error);
+            },
+        });
+    });
+
+
 </script>

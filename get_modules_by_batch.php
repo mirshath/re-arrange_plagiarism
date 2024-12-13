@@ -13,11 +13,14 @@ if (empty($batch_id)) {
     exit;
 }
 
-// Query to fetch modules for the selected batch
+
+
+// Query to fetch modules for the selected batch with deadlines after today's date
 $query = "
     SELECT *
     FROM module_table 
     WHERE batch_id = ? 
+      AND deadline >= CURDATE()
 ";
 
 $stmt = $conn->prepare($query);
