@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+
+
 // Initialize Select2 for the dropdowns
 $("#module").select2({
   placeholder: "Select Modules",
@@ -17,84 +19,11 @@ $("#d_hide").hide(); // Hide alert message
 $("#d_hide2").hide(); // Hide alert message
 $("#submitBtn").hide(); // Hide alert message
 
-// // ----------------------- old
-// $("#student_id, #dob").on("blur", function () {
-//   var student_id = $("#student_id").val();
-//   var dob = $("#dob").val();
 
-//   if (student_id && dob) {
-//     $.ajax({
-//       url: "validate_student.php",
-//       method: "POST",
-//       dataType: "json", // Expect JSON response
-//       data: {
-//         student_id: student_id,
-//         dob: dob,
-//       },
-//       success: function (response) {
-//         if (response.status === "valid") {
-//           var studentData = response.data;
 
-//           $("#next_button_id").hide();
-//           $("#d_hide").show();
-//           $("#d_hide2").show();
-//           // $("#submitBtn").show();
 
-//           // Populate and enable all fields if student_id and DOB match
-//           $("#name_in_full").val(studentData.name);
-//           $("#phone_no").val(studentData.phone_no);
-//           $("#email_address").val(studentData.email);
-//           $("#std_programs").val(studentData.program_name);
-//           $("#std_batch").val(studentData.batch_name);
-//           $("#bms_email_address")
-//             .val(studentData.bms_email)
-//             .prop("readonly", true);
 
-//           // Set hidden fields for program and batch IDs to ensure they’re sent in the form
-//           $("#program_id").val(studentData.program_id);
-//           $("#batch_id").val(studentData.batch_id);
-
-//           // Add this new code to fetch modules
-//           var program_id = studentData.program_id;
-//           if (program_id) {
-//             $.ajax({
-//               url: "Fetching-upmb/fetch_modules.php",
-//               method: "POST",
-//               data: { program_id: program_id },
-//               dataType: "json",
-//               success: function (modules) {
-//                 // Clear and populate module dropdown
-//                 $("#module")
-//                   .empty()
-//                   .append('<option value="">Select Module</option>');
-//                 modules.forEach(function (module) {
-//                   $("#module").append(
-//                     `<option value="${module.id}">${module.module_name}</option>`
-//                   );
-//                 });
-//               },
-//             });
-//           }
-
-//           // $('#address, #address_2, #city, #email_address, #professional, #submitBtn').prop('disabled', false);
-//         } else {
-//           // Disable fields and trigger the modal if student_id and DOB don't match
-//           // $('#name_in_full, #address, #address_2, #city, #email_address, #phone_no, #professional, #submitBtn').prop('disabled', true);
-//           $("#errorModal").modal("show");
-//           setTimeout(function () {
-//             window.location.reload();
-//           }, 2000); // Refresh after 2 seconds
-//         }
-//       },
-//     });
-//   } else {
-//     // If either student_id or DOB is empty, disable the fields
-//     // $('#name_in_full, #address, #address_2, #city, #email_address, #phone_no, #professional, #submitBtn').prop('disabled', true);
-//   }
-// });
-
-// --------------------------------------------------------------
-
+// ----------------------- old 
 $("#student_id, #dob").on("blur", function () {
   var student_id = $("#student_id").val();
   var dob = $("#dob").val();
@@ -104,31 +33,34 @@ $("#student_id, #dob").on("blur", function () {
       url: "validate_student.php",
       method: "POST",
       dataType: "json", // Expect JSON response
-      data: { student_id: student_id, dob: dob },
+      data: {
+        student_id: student_id,
+        dob: dob,
+      },
       success: function (response) {
         if (response.status === "valid") {
           var studentData = response.data;
 
-          // Hide and show appropriate sections
           $("#next_button_id").hide();
           $("#d_hide").show();
           $("#d_hide2").show();
+          // $("#submitBtn").show();
 
-          // Populate form fields with data
-          $("#name_in_full").val(studentData.student_name);
+          // Populate and enable all fields if student_id and DOB match
+          $("#name_in_full").val(studentData.name);
           $("#phone_no").val(studentData.phone_no);
-          $("#email_address").val(studentData.student_email);
+          $("#email_address").val(studentData.email);
           $("#std_programs").val(studentData.program_name);
           $("#std_batch").val(studentData.batch_name);
           $("#bms_email_address")
             .val(studentData.bms_email)
             .prop("readonly", true);
 
-          // Set hidden fields
+          // Set hidden fields for program and batch IDs to ensure they’re sent in the form
           $("#program_id").val(studentData.program_id);
           $("#batch_id").val(studentData.batch_id);
 
-          // Fetch modules for the selected program
+          // Add this new code to fetch modules
           var program_id = studentData.program_id;
           if (program_id) {
             $.ajax({
@@ -137,6 +69,7 @@ $("#student_id, #dob").on("blur", function () {
               data: { program_id: program_id },
               dataType: "json",
               success: function (modules) {
+                // Clear and populate module dropdown
                 $("#module")
                   .empty()
                   .append('<option value="">Select Module</option>');
@@ -148,19 +81,26 @@ $("#student_id, #dob").on("blur", function () {
               },
             });
           }
+
+          // $('#address, #address_2, #city, #email_address, #professional, #submitBtn').prop('disabled', false);
         } else {
+          // Disable fields and trigger the modal if student_id and DOB don't match
+          // $('#name_in_full, #address, #address_2, #city, #email_address, #phone_no, #professional, #submitBtn').prop('disabled', true);
           $("#errorModal").modal("show");
           setTimeout(function () {
             window.location.reload();
-          }, 2000);
+          }, 2000); // Refresh after 2 seconds
         }
       },
-      error: function () {
-        alert("An error occurred while validating the student.");
-      },
     });
+  } else {
+    // If either student_id or DOB is empty, disable the fields
+    // $('#name_in_full, #address, #address_2, #city, #email_address, #phone_no, #professional, #submitBtn').prop('disabled', true);
   }
 });
+
+
+
 
 // ------------------ modlue working --------------
 // Event listener for module dropdown
