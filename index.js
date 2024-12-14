@@ -244,10 +244,10 @@ $("#studentForm").on("submit", function (e) {
       if (response.includes("successful")) {
         // $("#studentForm")[0].reset();
         // alert("Successfully submitted");
-        // $("#successModal").modal("show");
+        $("#successModal").modal("show");
         setTimeout(function () {
           window.location.reload();
-        }, 500);
+        }, 2000);
       } else if (
         response.includes("Please select a module.") ||
         response.includes("Please upload a document.")

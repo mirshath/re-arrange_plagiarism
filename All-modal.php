@@ -33,7 +33,7 @@
             <div class="modal-body text-center modal-background">
                 <!-- Success Icon (Bootstrap Icons) -->
                 <i class="bi bi-check-circle-fill" style="font-size: 50px; color: green;"></i>
-                <h4 class="eb-garamond fw-bolder" style="font-size: 35px;">Thank you for completing the Document</h4>
+                <h4 class="eb-garamond fw-bolder" style="font-size: 35px;">Thank you for Submitting the Document</h4>
                 <!-- <p>Your feedback is valuable in helping us improve our services and enhance your experience. If you have any further questions or suggestions, feel free to reach out to us. We appreciate your time and input!</p> -->
                 <!-- 'Go Back' button to close the modal -->
                 <button class="btn btn-primary" data-bs-dismiss="modal">Close</button>
