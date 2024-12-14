@@ -25,7 +25,8 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap"
+        rel="stylesheet">
     <!-- -------------------  -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.2/qrcode.min.js"></script>
@@ -69,7 +70,7 @@
             width: 0;
             height: 2px;
             background-color:
-            #04356a !important;
+                #04356a !important;
             /* background-color:
                 #351c75; */
             transition: 0.4s;
@@ -120,17 +121,61 @@
             /* height: 100px; */
             /* Adjust size as necessary */
         }
+
+
+
+
+        /* Preloader styles */
+        #preloader1 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            /* or any background color */
+            z-index: 9999;
+            /* Ensure it covers the entire page */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Optional: Style the GIF if needed */
+        .preloader1-gif {
+            width: 150px;
+            /* Adjust size as necessary */
+            /* height: 100px; */
+            /* Adjust size as necessary */
+        }
     </style>
 </head>
 
+
+<!-- Preloader -->
+<!-- <div id="preloader1">
+    <img src="https://res.cloudinary.com/bytesizedpieces/image/upload/v1656084931/article/a-how-to-guide-on-making-an-animated-loading-image-for-a-website/animated_loader_gif_n6b5x0.gif"
+        alt="Loading..." class="preloader1-gif">
+</div> -->
+<div id="preloader1">
+    <img src="https://www.assamrifles.gov.in/onlineapp/images/processing.gif"
+        alt="Loading..." class="preloader1-gif">
+</div>
 <!-- Preloader -->
 <div id="preloader">
     <img src="./images/ani3.gif" alt="Loading..." class="preloader-gif">
 </div>
 
+
 <script>
-    window.addEventListener("load", function() {
+    window.addEventListener("load", function () {
         document.getElementById("preloader").style.display = "none";
+    });
+</script>
+
+<script>
+    window.addEventListener("load", function () {
+        document.getElementById("preloader1").style.display = "none";
     });
 </script>
 
@@ -142,7 +187,8 @@
         /* background: radial-gradient(circle, rgba(99, 34, 25, 1) 0%, rgba(70, 20, 12, 1) 95%); */
         border: none !important;
     }
-    .btn-primary:hover{
+
+    .btn-primary:hover {
         /* border: 1px solid #051342 !important; */
         background-color: #051342;
     }
