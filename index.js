@@ -74,6 +74,7 @@ $("#student_id, #dob").on("blur", function () {
     success: function (data) {
       if (data.success) {
         $("#d_hide").show();
+        $("#next_button").hide();
         $("#student_id_alert").hide();
         $("#name_in_full").val(data.name);
         $("#std_auto_id").val(data.id);
