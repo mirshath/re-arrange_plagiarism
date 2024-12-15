@@ -27,7 +27,7 @@ if (isset($_POST['upload'])) {
     // Get dropdown values for program, batch, and module
     $program_id = isset($_POST['program_id']) ? $_POST['program_id'] : '';
     $batch_id = isset($_POST['batch_id']) ? $_POST['batch_id'] : '';
-    $module_id = isset($_POST['module_id']) ? $_POST['module_id'] : '';
+    // $module_id = isset($_POST['module_id']) ? $_POST['module_id'] : '';
 
     // Check if file is uploaded
     if (isset($_FILES['csv_file']) && $_FILES['csv_file']['error'] == 0) {
@@ -79,8 +79,11 @@ if (isset($_POST['upload'])) {
                     $last_student_id = $conn->insert_id;
 
                     // Insert into `student_allocations` table using the last inserted student_id
-                    $insertQuery = "INSERT INTO student_allocations (student_id, program_id, batch_id, module_id) 
-                                    VALUES ('$last_student_id', '$program_id', '$batch_id', '$module_id')";
+                    // $insertQuery = "INSERT INTO student_allocations (student_id, program_id, batch_id, module_id) 
+                    //                 VALUES ('$last_student_id', '$program_id', '$batch_id', '$module_id')";
+
+                    $insertQuery = "INSERT INTO student_allocations (student_id, program_id, batch_id) 
+                                    VALUES ('$last_student_id', '$program_id', '$batch_id')";
                     $conn->query($insertQuery);
                 }
 
@@ -163,13 +166,13 @@ function allocateStudents($program_id, $batch_id)
         $checkerIndex = 0;
         $groupedAllocations = [];
 
-       
+
         foreach ($students as $student) {
             // Assuming $student['id'] is the correct student ID from old_student_db
             $checkerId = $checkers[$checkerIndex]['id'];
             $studentId = $student['id'];  // The student ID from old_student_db (check the correct field name)
             $studentRegId = $student['student_reg_id'];  // This might be different from $studentId
-        
+
             // Insert the allocation into the allocate_checker table
             $allocateQuery = "INSERT INTO allocate_checker (student_id, student_reg_id, checker_id, batch_id, created_at) 
                                 VALUES (?, ?, ?, ?, NOW())";
@@ -181,15 +184,15 @@ function allocateStudents($program_id, $batch_id)
                 $stmt = $conn->prepare($updateStudentQuery);
                 $stmt->bind_param("i", $studentId); // Use the correct student ID here
                 $stmt->execute();
-        
+
                 // Add student to the checker group for email
                 $groupedAllocations[$checkerId][] = $student;
             }
-        
+
             // Move to the next checker
             $checkerIndex = ($checkerIndex + 1) % count($checkers);
         }
-        
+
 
         // Now, send one email per checker with the list of students assigned to them
         foreach ($groupedAllocations as $checkerId => $students) {
