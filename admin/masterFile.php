@@ -18,6 +18,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'super_admin') {
 }
 
 
+
 // Handle form submission for adding program
 if (isset($_POST['submit_program'])) {
     $program_name = mysqli_real_escape_string($conn, $_POST['program_name']);

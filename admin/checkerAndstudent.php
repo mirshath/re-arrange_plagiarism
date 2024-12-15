@@ -10,6 +10,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'super_admin') {
     exit();
 }
 
+
 // Initialize result to an empty variable
 $result = null;
 $checker_name = ''; // Variable to store the checker's name

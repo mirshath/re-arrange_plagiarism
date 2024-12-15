@@ -22,6 +22,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'super_admin') {
 
 
 
+
 // Fetch the portal status from the database
 $query = "SELECT portal_status FROM portal WHERE id = 1"; // Adjust the query if needed based on your database structure
 $result = $conn->query($query);

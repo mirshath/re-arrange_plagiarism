@@ -7,9 +7,11 @@ session_start();
 // Ensure the user is logged in and has the correct role
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'super_admin') {
     // Redirect to login page if not logged in or role is incorrect
-    echo '<script>window.location.href = "../login.php";</script>';
+    echo '<script>window.location.href = "../login";</script>';
     exit();
 }
+
+
 
 
 include("../database/connection.php");

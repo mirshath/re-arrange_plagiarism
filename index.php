@@ -5,21 +5,54 @@ include('./includes/header.php');
 
 
 // Fetch the portal status
-$query = "SELECT portal_status FROM portal WHERE id = 1";
-$result = $conn->query($query);
-$portalStatusMessage = '';
+// $query = "SELECT portal_status FROM portal WHERE id = 1";
+// $result = $conn->query($query);
+// $portalStatusMessage = '';
 
-if ($result && $result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    if ($row['portal_status'] === 'off') {
-        $portalStatusMessage = 'The portal is not available for use at the moment.';
-    }
-}
+// if ($result && $result->num_rows > 0) {
+//     $row = $result->fetch_assoc();
+//     if ($row['portal_status'] === 'off') {
+//         $portalStatusMessage = 'The portal is not available for use at the moment.';
+//     }
+// }
+
+
+
 ?>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+<!-- portal activation checking  -->
+<script>
+    function checkPortalStatus() {
+        $.ajax({
+            url: 'check_portal_status.php',
+            method: 'GET',
+            success: function(response) {
+                if (response.status === 'off') {
+                    // Show portal closed message
+                    $('.container').html(`
+                    <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+                        <div class="alert alert-danger text-center" role="alert">
+                            <h5 class="alert-heading">Portal is currently closed!</h5>
+                            <p>${response.message}</p>
+                        </div>
+                    </div>
+                `);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error checking portal status:', error);
+            }
+        });
+    }
 
+    // Check initially
+    checkPortalStatus();
+
+    // Check every 30 seconds
+    setInterval(checkPortalStatus, 1000);
+</script>
 
 <?php if (!empty($portalStatusMessage)): ?>
     <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
@@ -273,4 +306,3 @@ if ($result && $result->num_rows > 0) {
 
 
 <script src="./index.js"></script>
-

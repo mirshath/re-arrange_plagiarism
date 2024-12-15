@@ -20,6 +20,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'super_admin') {
 }
 
 
+
 // Get the file name from the GET request
 if (isset($_GET['file']) && !empty($_GET['file'])) {
     $file_name = basename($_GET['file']);  // Extract file name from the request to prevent path traversal

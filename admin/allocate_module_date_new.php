@@ -10,6 +10,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'super_admin') {
     exit();
 }
 
+
+
 // Fetch module data from the database
 // $query = "SELECT * FROM module_table";
 // $query = "SELECT * FROM module_table m

@@ -147,7 +147,7 @@
             </p>
             <div class="btns">
                 <a href="/">return home</a>
-                <a href="contact">report problem</a>
+                <!-- <a href="contact">report problem</a> -->
             </div>
         </div>
     </div>

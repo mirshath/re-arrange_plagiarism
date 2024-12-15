@@ -3,11 +3,14 @@ session_start();
 include("../database/connection.php");
 include("includes/header.php");
 
+// Ensure the user is logged in and has the correct role
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'super_admin') {
     // Redirect to login page if not logged in or role is incorrect
     echo '<script>window.location.href = "../login";</script>';
     exit();
 }
+
+
 
 // Include PHPMailer classes
 use PHPMailer\PHPMailer\PHPMailer;
