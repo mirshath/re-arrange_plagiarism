@@ -6,12 +6,10 @@ include("includes/header.php");
 
 // Ensure the user is logged in and has the correct role
 // Ensure the user is logged in and has the correct role
-if ($_SESSION['role'] !== 'plagiarism_checker') {
-    // header("Location: ../login.php");
-    echo '<script>window.location.href = "../login.php";</script>';
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'plagiarism_checker') {
+    echo '<script>window.location.href = "../login";</script>';
     exit();
 }
-
 
 
 ?>

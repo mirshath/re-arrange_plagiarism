@@ -5,13 +5,12 @@ include("includes/header.php");
 
 // Ensure the user is logged in and has the correct role
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'plagiarism_checker') {
-    // Redirect to login page if not logged in or role is incorrect
-    echo '<script>window.location.href = "../login.php";</script>';
+    echo '<script>window.location.href = "../login";</script>';
     exit();
 }
 
 if (!isset($_SESSION['id'])) {
-    echo '<script>window.location.href = "../login.php";</script>';
+    echo '<script>window.location.href = "../login";</script>';
     exit();
 }
 
