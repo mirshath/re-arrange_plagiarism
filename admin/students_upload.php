@@ -349,13 +349,13 @@ function sendGroupedAllocationEmail($checkerId, $students, $programName, $batchN
                                         </select>
                                     </div>
 
-                                    <div class="mb-3">
+                                    <!-- <div class="mb-3">
                                         <label for="module" class="form-label">Module:</label>
                                         <select id="module" name="module_id" class="form-select" disabled>
                                             <option value="">Select Module</option>
-                                            <!-- Options will be dynamically populated -->
+                                           
                                         </select>
-                                    </div>
+                                    </div> -->
 
                                     <div class="mb-3">
                                         <label for="csv_file" class="form-label">Choose CSV File:</label>
