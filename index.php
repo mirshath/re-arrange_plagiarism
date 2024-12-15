@@ -303,6 +303,11 @@ include('./includes/header.php');
 <!-- Bootstrap JS and dependencies (Optional) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
+<style>
+    .modal-background {
+        background-image: url('https://media.istockphoto.com/id/1338579925/vector/geometric-background-of-squares-and-dots.jpg?s=612x612&w=0&k=20&c=SZJsLHWoh2rTHRJP5bSss3a7xuY6GCE3iFLUDW2t0Q0=');
 
+    }
+</style>
 
 <script src="./index.js"></script>

@@ -76,16 +76,10 @@ $stmt->close();
                                 </thead>
                                 <tbody>
                                     <?php
-                                    // Displaying student data in table rows
                                     if ($students) {
                                         $index = 1;
                                         foreach ($students as $student) {
-
-
-                                            // Apply yellow background color if checked_status is 'checked'
                                             $rowClass = ($student['checked_status'] == 'checked') ? 'highlight-yellow' : '';
-
-
                                             echo '<tr class="' . $rowClass . '">';
                                             echo '<td>' . $index . '</td>';
                                             echo '<td>' . htmlspecialchars($student['student_id']) . '</td>';
@@ -93,11 +87,21 @@ $stmt->close();
                                             echo '<td>' . htmlspecialchars($student['bms_email']) . '</td>';
                                             echo '<td>' . htmlspecialchars($student['module_name']) . '</td>';
 
+                                            // Check for the 1st document
                                             if (!empty($student['Documents'])) {
                                                 $document_path = $student['Documents'];
-                                                echo '<td class="text-center"><a href="../uploads/documents/' . htmlspecialchars($document_path) . '" target="_blank" style="text-decoration:none;" class="download-link" data-id="' . $student['student_id'] . '" data-module-id="' . htmlspecialchars($student['module_id']) . '">
-                                                        Download &nbsp;<i class="fas fa-download"></i>
-                                                        </a></td>';
+
+                                                // If 2nd or 3rd document is submitted, disable the 1st document link
+                                                if (!empty($student['submitted_at_2nd_time']) || !empty($student['submitted_at_3rd_time'])) {
+                                                    // echo '<td class="text-center"><span class="text-muted">View Only</span></td>';
+                                                    echo '<td class="text-center"><span class="text-muted">View Only</span></td>';
+                                                } else {
+                                                    echo '<td class="text-center">
+                                                        <a href="../uploads/documents/' . htmlspecialchars($document_path) . '" target="_blank" style="text-decoration:none;" class="download-link" data-id="' . $student['student_id'] . '" data-module-id="' . htmlspecialchars($student['module_id']) . '">
+                                                            Download &nbsp;<i class="fas fa-download"></i>
+                                                        </a>
+                                                    </td>';
+                                                }
                                             } else {
                                                 echo '<td>No Document</td>';
                                             }
@@ -105,47 +109,44 @@ $stmt->close();
                                             echo '<td>' . htmlspecialchars($student['submitted_at']) . '</td>';
                                             echo '<td>' . htmlspecialchars($student['checker_downlaoded_at']) . '</td>';
 
-
-
-                                    ?>
-                                            <td>
-                                                <select class="status-dropdown" data-student-id="<?php echo htmlspecialchars($student['student_id']); ?>">
-                                                    <option disabled value="pending" <?php echo ($student['checked_status'] == 'pending' ? 'selected' : ''); ?>>Pending</option>
-                                                    <option value="checked" <?php echo ($student['checked_status'] == 'checked' ? 'selected' : ''); ?>>Checked</option>
+                                            echo '<td>
+                                                <select class="status-dropdown" data-student-id="' . htmlspecialchars($student['student_id']) . '">
+                                                    <option disabled value="pending" ' . ($student['checked_status'] == 'pending' ? 'selected' : '') . '>Pending</option>
+                                                    <option value="checked" ' . ($student['checked_status'] == 'checked' ? 'selected' : '') . '>Checked</option>
                                                 </select>
-
-                                                <!-- Update Button (Initially Hidden) -->
-                                                <button class="btn btn-sm submit-status" data-student-id="<?php echo htmlspecialchars($student['student_id']); ?>" style="display: none;">
-                                                    <a href="mailto:<?php echo htmlspecialchars($student['bms_email']); ?>?subject=Regarding Submission Report&body=Hello <?php echo htmlspecialchars($student['name_full']); ?>,%0A%0AYour submission has been reviewed.&bcc=ccemail@example.com"
-                                                        class="btn btn-sm btn-primary" style="text-decoration:none;">Update</a>
-                                                </button>
-                                            </td>
-                                    <?php
-                                            //  ----------- submit btn ----------- 
-
-
-
+                                            </td>';
                                             echo '</tr>';
 
-
+                                            // Check for the 2nd document
                                             if (!empty($student['submitted_at_2nd_time']) && !empty($student['Documents_1'])) {
                                                 $document_path = $student['Documents_1'];
+
+                                                // If 3rd document is submitted, disable the 2nd document link
                                                 echo '<tr>';
-                                                echo '<td colspan="5" class="text-right"><strong>Second Submission Time:</strong> </td>';
-                                                echo '<td class="text-center"><a href="../uploads/documents/' . htmlspecialchars($document_path) . '" target="_blank" style="text-decoration:none;" class="download-link" data-id="' . $student['student_id'] . '" data-module-id="' . htmlspecialchars($student['module_id']) . '">
-                                                        Download &nbsp;<i class="fas fa-download"></i>
-                                                        </a></td>';
+                                                echo '<td colspan="5" class="text-right"><strong>Second Submission Time:</strong></td>';
+                                                if (!empty($student['submitted_at_3rd_time'])) {
+                                                    echo '<td class="text-center"><span class="text-muted">View Only</span></td>';
+                                                } else {
+                                                    echo '<td class="text-center">
+                                                        <a href="../uploads/documents/' . htmlspecialchars($document_path) . '" target="_blank" style="text-decoration:none;" class="download-link" data-id="' . $student['student_id'] . '" data-module-id="' . htmlspecialchars($student['module_id']) . '">
+                                                            Download &nbsp;<i class="fas fa-download"></i>
+                                                        </a>
+                                                    </td>';
+                                                }
                                                 echo '<td>' . htmlspecialchars($student['submitted_at_2nd_time']) . '</td>';
                                                 echo '</tr>';
                                             }
 
+                                            // Check for the 3rd document
                                             if (!empty($student['submitted_at_3rd_time']) && !empty($student['Documents_2'])) {
                                                 $document_path = $student['Documents_2'];
                                                 echo '<tr>';
                                                 echo '<td colspan="5" class="text-right"><strong>Third Submission Time:</strong></td>';
-                                                echo '<td class="text-center"><a href="../uploads/documents/' . htmlspecialchars($document_path) . '" target="_blank" style="text-decoration:none;" class="download-link" data-id="' . $student['student_id'] . '" data-module-id="' . htmlspecialchars($student['module_id']) . '">
+                                                echo '<td class="text-center">
+                                                    <a href="../uploads/documents/' . htmlspecialchars($document_path) . '" target="_blank" style="text-decoration:none;" class="download-link" data-id="' . $student['student_id'] . '" data-module-id="' . htmlspecialchars($student['module_id']) . '">
                                                         Download &nbsp;<i class="fas fa-download"></i>
-                                                        </a></td>';
+                                                    </a>
+                                                </td>';
                                                 echo '<td>' . htmlspecialchars($student['submitted_at_3rd_time']) . '</td>';
                                                 echo '</tr>';
                                             }
