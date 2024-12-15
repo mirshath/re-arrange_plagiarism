@@ -134,7 +134,7 @@ include('./includes/header.php');
 
                         <div class="card mt-2 lft_border" id="d_hide" style="display: none;">
                             <div class="card-body shadow">
-                                <p>Welcome! Your details are verified.</p>
+                                <p class="text-center text-danger fw-bold">Welcome! Your details are verified.</p>
 
                                 <div class="row">
                                     <div class="col-md-12">

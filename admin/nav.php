@@ -50,118 +50,125 @@ $current_url = basename($_SERVER['REQUEST_URI'], ".php");
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item <?= ($current_url == 'index') ? 'active' : '' ?>" id="navHover">
-        <a class="nav-link" href="index">
+    <!-- Nav Item - Dashboard (Super Admin & IT Department Only) -->
+    <li class="nav-item <?= ($_SESSION['role'] === 'super_admin' || $_SESSION['role'] === 'it_department'  || $_SESSION['role'] === 'exam_department' ) ? 'active' : 'disabled' ?>"
+        id="navHover">
+        <a class="nav-link <?= ($_SESSION['role'] === 'super_admin' || $_SESSION['role'] === 'it_department' || $_SESSION['role'] === 'exam_department' ) ? '' : 'disabled' ?>"
+            href="<?= ($_SESSION['role'] === 'super_admin' || $_SESSION['role'] === 'it_department') ? 'index' : '#' ?>">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item <?= ($current_url == 'masterFile' || $current_url == 'allocate_module_date' || $current_url == 'admin_allocate') ? 'active' : '' ?>" id="navHover">
-        <a class=" nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-            aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-exchange-alt"></i>
-            <span>OLD Master File</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Components</h6>
-                <!-- <a class="collapse-item <?= ($current_url == 'portal_status') ? 'active' : '' ?> " href="portal_status">Portal Active</a> -->
-                <a class="collapse-item <?= ($current_url == 'masterFile') ? 'active' : '' ?> " href="masterFile">Master</a>
-                <!-- <a class="collapse-item <?= ($current_url == 'students_upload') ? 'active' : '' ?> " href="students_upload">Uplaod Students</a> -->
-                <a class="collapse-item <?= ($current_url == 'allocate_module_date') ? 'active' : '' ?> " href="allocate_module_date">module dead old</a>
-                <a class="collapse-item <?= ($current_url == 'admin_allocate') ? 'active' : '' ?> " href="admin_allocate">Allocate Checker</a>
-
-                <!-- <a class="collapse-item" href="testing">Testing</a> -->
+    <!-- OLD Master File (Super Admin Only) -->
+    <!-- OLD Master File (Super Admin Only) -->
+    <li class="nav-item <?= ($_SESSION['role'] === 'super_admin') ? (($current_url == 'masterFile' || $current_url == 'allocate_module_date' || $current_url == 'admin_allocate') ? 'active' : '') : 'disabled' ?>"
+        id="navHover">
+        <?php if ($_SESSION['role'] === 'super_admin'): ?>
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+                aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-exchange-alt"></i>
+                <span>OLD Master File</span>
+            </a>
+            <div id="collapseTwo" class="collapse <?= ($_SESSION['role'] === 'super_admin') ? '' : 'disabled' ?>"
+                aria-labelledby="headingOne" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Components</h6>
+                    <a class="collapse-item <?= ($current_url == 'masterFile') ? 'active' : '' ?>"
+                        href="masterFile">Master</a>
+                    <a class="collapse-item <?= ($current_url == 'allocate_module_date') ? 'active' : '' ?>"
+                        href="allocate_module_date">Module Dead Old</a>
+                    <a class="collapse-item <?= ($current_url == 'admin_allocate') ? 'active' : '' ?>"
+                        href="admin_allocate">Allocate Checker</a>
+                </div>
             </div>
-        </div>
+        <?php else: ?>
+            <!-- <a class="nav-link disabled" href="#" style="pointer-events: none; opacity: 0.6;">
+                <i class="fas fa-fw fa-exchange-alt"></i>
+                <span>OLD Master File</span>
+            </a> -->
+        <?php endif; ?>
     </li>
+
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item <?= ($current_url == '' || $current_url == 'portal_status' || $current_url == 'students_upload') ? 'active' : '' ?>" id="navHover">
-        <a class=" nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
-            aria-expanded="true" aria-controls="collapseFour">
-            <i class="fas fa-fw fa-exchange-alt"></i>
-            <span>Master File</span>
-        </a>
-        <div id="collapseFour" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Components</h6>
-                <a class="collapse-item <?= ($current_url == 'portal_status') ? 'active' : '' ?> " href="portal_status">Portal Active</a>
-                <!-- <a class="collapse-item <?= ($current_url == 'masterFile') ? 'active' : '' ?> " href="masterFile">Master</a> -->
-                <a class="collapse-item <?= ($current_url == 'students_upload') ? 'active' : '' ?> " href="students_upload">Upload Students</a>
-                <!-- <a class="collapse-item <?= ($current_url == 'allocate_module_date') ? 'active' : '' ?> " href="allocate_module_date">module dead old</a> -->
-
-                <!-- <a class="collapse-item" href="testing">Testing</a> -->
+    <li class="nav-item <?= ($current_url == '' || $current_url == 'portal_status' || $current_url == 'students_upload') ? 'active' : '' ?>"
+        id="navHover">
+        <?php if ($_SESSION['role'] === 'super_admin'): ?>
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true"
+                aria-controls="collapseFour">
+                <i class="fas fa-fw fa-exchange-alt"></i>
+                <span>Master File</span>
+            </a>
+            <div id="collapseFour" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Components</h6>
+                    <a class="collapse-item <?= ($current_url == 'portal_status') ? 'active' : '' ?>"
+                        href="portal_status">Portal Active</a>
+                    <a class="collapse-item <?= ($current_url == 'students_upload') ? 'active' : '' ?>"
+                        href="students_upload">Upload Students</a>
+                </div>
             </div>
-        </div>
+        <?php else: ?>
+            <a class="nav-link disabled" href="#" style="pointer-events: none; opacity: 0.6;">
+                <i class="fas fa-fw fa-exchange-alt"></i>
+                <span>Master File</span>
+            </a>
+        <?php endif; ?>
     </li>
 
-    <li class="nav-item <?= ($current_url == 'allocate_module_date_new') ? 'active' : '' ?>" id="navHover">
-        <a class="nav-link" href="allocate_module_date_new">
+
+
+    <!-- Module Dead New (Super Admin & IT Department Only) -->
+    <li class="nav-item <?= ($_SESSION['role'] === 'super_admin' || $_SESSION['role'] === 'it_department') ? (($current_url == 'allocate_module_date_new') ? 'active' : '') : 'disabled' ?>"
+        id="navHover">
+        <a class="nav-link <?= ($_SESSION['role'] === 'super_admin' || $_SESSION['role'] === 'it_department'  || $_SESSION['role'] === 'exam_department' ) ? '' : 'disabled' ?>"
+            href="allocate_module_date_new">
             <i class="fas fa-fw fa-table"></i>
-            <span>Module dead New</span></a>
+            <span>Module Dead New</span></a>
     </li>
 
     <li class="nav-item <?= ($current_url == 'checkerAndstudent') ? 'active' : '' ?>" id="navHover">
-        <a class="nav-link" href="checkerAndstudent">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Std Submitted</span></a>
+        <?php if ($_SESSION['role'] === 'super_admin'): ?>
+            <a class="nav-link" href="checkerAndstudent">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Std Submitted</span>
+            </a>
+        <?php else: ?>
+            <a class="nav-link disabled" href="#" style="pointer-events: none; opacity: 0.6;">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Std Submitted</span>
+            </a>
+        <?php endif; ?>
     </li>
 
     <li class="nav-item <?= ($current_url == 'checker_student_views') ? 'active' : '' ?>" id="navHover">
-        <a class="nav-link" href="checker_student_views">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Allocations</span></a>
+        <?php if ($_SESSION['role'] === 'super_admin' || $_SESSION['role'] === 'it_department' ): ?>
+            <a class="nav-link" href="checker_student_views">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Allocations</span></a>
+        <?php else: ?>
+            <a class="nav-link disabled" href="#" style="pointer-events: none; opacity: 0.6;">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Allocations</span></a>
+        <?php endif; ?>
     </li>
+
 
     <li class="nav-item <?= ($current_url == 'checker_reg') ? 'active' : '' ?>" id="navHover">
-        <a class="nav-link" href="checker_reg">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Checker Reg</span></a>
+        <?php if ($_SESSION['role'] === 'super_admin'): ?>
+            <a class="nav-link" href="checker_reg">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Checker Reg</span>
+            </a>
+        <?php else: ?>
+            <a class="nav-link disabled" href="#" style="pointer-events: none; opacity: 0.6;">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Checker Reg</span>
+            </a>
+        <?php endif; ?>
     </li>
 
-
-
-
-
-
-
-    <!-- --------------------------------------------------------  -->
-
-    <!-- <li class="nav-item <?= ($current_url == 'portal_status') ? 'active' : '' ?>" id="navHover">
-        <a class="nav-link" href="portal_status">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Portal Activations</span></a>
-    </li> -->
-
-    <!-- <li class="nav-item <?= ($current_url == 'masterFile') ? 'active' : '' ?>" id="navHover">
-        <a class="nav-link" href="masterFile">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Master File</span></a>
-    </li> -->
-
-
-    <!-- <li class="nav-item <?= ($current_url == 'students_upload') ? 'active' : '' ?>" id="navHover">
-        <a class="nav-link" href="students_upload">
-            <i class="fas fa-fw fa-table"></i>
-            <span>St Upload</span></a>
-    </li> -->
-
-
-    <!-- <li class="nav-item <?= ($current_url == 'admin_allocate') ? 'active' : '' ?>" id="navHover">
-        <a class="nav-link" href="admin_allocate">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Allocate Checker</span></a>
-    </li> -->
-
-
-
-    <!-- <li class="nav-item" id="navHover">
-        <a class="nav-link" href="testing">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Testing</span></a>
-    </li> -->
 
 
 </ul>

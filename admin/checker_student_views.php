@@ -4,11 +4,22 @@ include("../database/connection.php");
 include("includes/header.php");
 
 // Ensure the user is logged in and has the correct role
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'super_admin') {
-    // Redirect to login page if not logged in or role is incorrect
+// if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'super_admin') {
+//     // Redirect to login page if not logged in or role is incorrect
+//     echo '<script>window.location.href = "../login";</script>';
+//     exit();
+// }
+
+
+if (
+    !isset($_SESSION['role']) ||
+    ($_SESSION['role'] !== 'super_admin' && $_SESSION['role'] !== 'it_department')
+) {
     echo '<script>window.location.href = "../login";</script>';
     exit();
 }
+
+
 
 
 ?>

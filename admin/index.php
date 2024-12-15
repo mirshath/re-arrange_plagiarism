@@ -13,8 +13,18 @@ include("includes/header.php");
 
 
 // Ensure the user is logged in and has the correct role
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'super_admin') {
-    // Redirect to login page if not logged in or role is incorrect
+// if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'super_admin') {
+//     // Redirect to login page if not logged in or role is incorrect
+//     echo '<script>window.location.href = "../login";</script>';
+//     exit();
+// }
+
+
+// Ensure the user is logged in and has the correct role
+if (
+    !isset($_SESSION['role']) ||
+    ($_SESSION['role'] !== 'super_admin' && $_SESSION['role'] !== 'it_department' && $_SESSION['role'] !== 'exam_department')
+) {
     echo '<script>window.location.href = "../login";</script>';
     exit();
 }
@@ -92,7 +102,7 @@ if ($result && $result->num_rows > 0) {
                 </div>
 
                 <!-- Display Portal Status Message if Portal is Closed -->
-                <?php if (!empty($portalStatusMessage)) : ?>
+                <?php if (!empty($portalStatusMessage)): ?>
                     <div class="alert alert-danger" role="alert">
                         <h5 class="alert-heading">Portal is currently closed!</h5>
                         <p><?php echo $portalStatusMessage; ?></p>
@@ -157,7 +167,7 @@ if ($result && $result->num_rows > 0) {
                     //     calendar.render();
                     // });
 
-                    document.addEventListener('DOMContentLoaded', function() {
+                    document.addEventListener('DOMContentLoaded', function () {
                         var calendarEl = document.getElementById('calendar');
                         var calendar = new FullCalendar.Calendar(calendarEl, {
                             initialView: 'dayGridMonth', // Default month view
@@ -167,7 +177,7 @@ if ($result && $result->num_rows > 0) {
                                 center: 'title',
                                 right: 'dayGridMonth,timeGridWeek,timeGridDay'
                             },
-                            eventContent: function(info) {
+                            eventContent: function (info) {
                                 var eventTitle = info.event.title; // Initially show program_name
                                 var eventDescription = info.event.extendedProps.description; // Get the description
 
@@ -195,7 +205,7 @@ if ($result && $result->num_rows > 0) {
                                     domNodes: [titleElement]
                                 };
                             },
-                            eventMouseEnter: function(info) {
+                            eventMouseEnter: function (info) {
                                 // Create and show a tooltip with additional event details
                                 var tooltip = document.createElement('div');
                                 tooltip.innerHTML =
@@ -221,7 +231,7 @@ if ($result && $result->num_rows > 0) {
                                 // Store tooltip reference to remove it later
                                 info.el.tooltip = tooltip;
                             },
-                            eventMouseLeave: function(info) {
+                            eventMouseLeave: function (info) {
                                 // Remove tooltip when mouse leaves event
                                 if (info.el.tooltip) {
                                     document.body.removeChild(info.el.tooltip);

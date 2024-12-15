@@ -23,7 +23,7 @@ if (isset($_POST['login'])) {
         $_SESSION['role'] = $user['role'];  // Ensure role is correctly set
 
         // Redirect based on role
-        if ($user['role'] == 'super_admin' || $user['role'] == 'it_department' || $user['role'] == 'exam_department') {
+        if ($user['role'] == 'super_admin') {
             header("Location: admin/index.php");
         } elseif ($user['role'] == 'plagiarism_checker') {
             header("Location: checker/index.php");

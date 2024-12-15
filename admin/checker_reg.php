@@ -74,7 +74,9 @@ if (isset($_POST['register'])) {
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-header d-flex align-items-center" style="height: 60px;">
-                                <span class="bg-dark text-white rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 30px; height: 30px;">
+                                <span
+                                    class="bg-dark text-white rounded-circle p-2 d-flex align-items-center justify-content-center"
+                                    style="width: 30px; height: 30px;">
                                     <i class="fas fa-plus-circle"></i>
                                 </span> &nbsp;&nbsp;&nbsp;&nbsp;
                                 <h6 class="mb-0 me-2">Add </h6>
@@ -92,7 +94,8 @@ if (isset($_POST['register'])) {
                                         <div class="col-md">
                                             <div class="mb-3">
                                                 <label for="email" class="form-label">Email Address</label>
-                                                <input type="email" class="form-control" id="email" name="email" required>
+                                                <input type="email" class="form-control" id="email" name="email"
+                                                    required>
                                             </div>
                                         </div>
                                     </div>
@@ -100,7 +103,8 @@ if (isset($_POST['register'])) {
                                         <div class="col-md">
                                             <div class="mb-3">
                                                 <label for="password" class="form-label">Password</label>
-                                                <input type="password" class="form-control" id="password" name="password" required>
+                                                <input type="password" class="form-control" id="password"
+                                                    name="password" required>
                                             </div>
                                         </div>
                                         <div class="col-md">
@@ -110,6 +114,8 @@ if (isset($_POST['register'])) {
                                                     <option value="">Select Role</option>
                                                     <option value="super_admin">Super Admin</option>
                                                     <option value="plagiarism_checker">Plagiarism Checker</option>
+                                                    <option value="it_department">It Department</option>
+                                                    <option value="exam_department">Exam Department</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -117,7 +123,8 @@ if (isset($_POST['register'])) {
                                     <div class="row">
                                         <div class="col-md"></div>
                                         <div class="col-md">
-                                            <button type="submit" class="btn btn-primary w-100" name="register">Register</button>
+                                            <button type="submit" class="btn btn-primary w-100"
+                                                name="register">Register</button>
                                         </div>
                                     </div>
                                 </form>
@@ -131,14 +138,17 @@ if (isset($_POST['register'])) {
             <div class="container-fluid">
                 <div class="card shadow mb-4" style="font-size: 13px;">
                     <div class="card-header d-flex align-items-center" style="height: 60px;">
-                        <span class="bg-dark text-white rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 30px; height: 30px;">
+                        <span
+                            class="bg-dark text-white rounded-circle p-2 d-flex align-items-center justify-content-center"
+                            style="width: 30px; height: 30px;">
                             <i class="fas fa-list"></i>
                         </span> &nbsp;&nbsp;&nbsp;&nbsp;
                         <h6 class="mb-0">Current Checkers and Admin</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered table-striped" id="dataTable" width="100%"
+                                cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -185,7 +195,7 @@ if (isset($_POST['register'])) {
 
 <!-- Initialize DataTable -->
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#dataTable').DataTable({
             "paging": true, // Enable pagination
             "searching": true, // Enable search box
