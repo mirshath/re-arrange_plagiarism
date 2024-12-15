@@ -17,10 +17,13 @@ $sql = "
     JOIN 
         batch_table b ON m.batch_id = b.id
     LEFT JOIN 
-        student_allocations sa ON sa.module_id = m.id AND sa.batch_id = b.id
+        student_allocations sa ON  sa.batch_id = b.id   
     GROUP BY 
         m.module_name, m.deadline, p.program_name, b.batch_name;
 "; // Query that includes program, batch, and student count
+// sa.module_id = m.id AND
+
+
 
 $result = $conn->query($sql);
 
