@@ -144,165 +144,136 @@ if ($result) {
                     </div>
                 </div>
 
-                <!-- Table to Display Module Data -->
-                <!-- <div class="card mt-5">
+
+                <!-- Add DataTables CSS -->
+                <link href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css" rel="stylesheet">
+
+                <!-- Add jQuery (required for DataTables) -->
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+                <!-- Add DataTables JS -->
+                <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
+
+
+                <div class="card mt-5">
                     <div class="card-header">
                         <h6 class="mb-0">Module Data</h6>
                     </div>
                     <div class="card-body">
-                        <table class="table table-bordered">
+                        <table id="moduleTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Module Name</th>
-                                    <th>Program ID</th>
-                                    <th>Batch ID</th>
+                                    <th>#</th> <!-- Index Column -->
+                                    <th>Program Name</th>
+                                    <th>Batch</th>
+                                    <th>Module</th>
                                     <th>Deadline</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($moduleData as $module): ?>
-                                    <tr>
-                                        <td><?php echo $module['id']; ?></td>
-                                        <td><?php echo $module['module_name']; ?></td>
-                                        <td><?php echo $module['program_id']; ?></td>
-                                        <td><?php echo $module['batch_id']; ?></td>
-                                        <td><?php echo $module['deadline']; ?></td>
-                                    </tr>
-                                <?php endforeach; ?>
+                                <?php
+                                // Initialize the index counter
+                                $index = 1;
+                                // Loop through the fetched module data and calculate status
+                                foreach ($moduleData as $module) {
+                                    $deadline = new DateTime($module['deadline']);
+                                    $currentDate = new DateTime();
+                                    $difference = $deadline->diff($currentDate);
+                                    $status = ($deadline > $currentDate) ? "Upcoming" : "Expired";
+
+                                    echo "<tr>";
+                                    echo "<td>" . $index++ . "</td>";  // Display the index
+                                    echo "<td>" . $module['program_name'] . "</td>";
+                                    echo "<td>" . $module['batch_name'] . "</td>";
+                                    echo "<td>" . $module['module_name'] . "</td>";
+                                ?>
+                                    <td>
+                                        <span class="deadline-text"><?php echo $module['deadline']; ?></span> &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="date" class="deadline-input p-1" value="<?php echo $module['deadline']; ?>" style="display:none" />
+                                        <button class="btn btn-primary btn-sm edit-btn" data-id="<?php echo $module['id']; ?>" data-deadline="<?php echo $module['deadline']; ?>">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </td>
+
+                                    <?php
+                                    if ($status === "Upcoming") {
+                                        echo "<td><span class='badge bg-success'>Upcoming (" . $difference->days . " days left)</span></td>";
+                                    } else {
+                                        echo "<td><span class='badge bg-danger'>Expired (" . $difference->days . " days ago)</span></td>";
+                                    }
+                                    ?>
+
+                                <?php
+                                    echo "</tr>";
+                                }
+                                ?>
                             </tbody>
                         </table>
+
                     </div>
-                </div> -->
-<!-- Add DataTables CSS -->
-<link href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css" rel="stylesheet">
+                </div>
 
-<!-- Add jQuery (required for DataTables) -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script>
+                    $(document).ready(function() {
+                        // Initialize DataTables
+                        $('#moduleTable').DataTable({
+                            // Add custom settings if needed
+                            paging: true, // Pagination enabled
+                            searching: true, // Enable searching
+                            ordering: true, // Enable sorting
+                            info: true, // Show table information
+                        });
 
-<!-- Add DataTables JS -->
-<script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
+                        // When the edit button is clicked
+                        $('.edit-btn').click(function() {
+                            const moduleId = $(this).data('id');
+                            const currentDeadline = $(this).data('deadline');
 
+                            // Find the corresponding deadline text and input field
+                            const deadlineText = $(this).closest('td').find('.deadline-text');
+                            const deadlineInput = $(this).closest('td').find('.deadline-input');
 
-<div class="card mt-5">
-    <div class="card-header">
-        <h6 class="mb-0">Module Data</h6>
-    </div>
-    <div class="card-body">
-    <table id="moduleTable" class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>#</th> <!-- Index Column -->
-            <th>Program Name</th>
-            <th>Batch</th>
-            <th>Module</th>
-            <th>Deadline</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-        // Initialize the index counter
-        $index = 1;
-        // Loop through the fetched module data and calculate status
-        foreach ($moduleData as $module) {
-            $deadline = new DateTime($module['deadline']);
-            $currentDate = new DateTime();
-            $difference = $deadline->diff($currentDate);
-            $status = ($deadline > $currentDate) ? "Upcoming" : "Expired";
+                            // Toggle the visibility of text and input
+                            deadlineText.toggle(); // Hide the text
+                            deadlineInput.toggle(); // Show the input field with current deadline value
 
-            echo "<tr>";
-            echo "<td>" . $index++ . "</td>";  // Display the index
-            echo "<td>" . $module['program_name'] . "</td>";
-            echo "<td>" . $module['batch_name'] . "</td>";
-            echo "<td>" . $module['module_name'] . "</td>";
-        ?>
-            <td>
-                <span class="deadline-text"><?php echo $module['deadline']; ?></span> &nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="date" class="deadline-input p-1" value="<?php echo $module['deadline']; ?>" style="display:none" />
-                <button class="btn btn-primary btn-sm edit-btn" data-id="<?php echo $module['id']; ?>" data-deadline="<?php echo $module['deadline']; ?>">
-                    <i class="fas fa-edit"></i>
-                </button>
-            </td>
+                            // Change the button text to 'Save' once it's clicked for editing
+                            $(this).text('Save').removeClass('btn-warning').addClass('btn-success');
 
-            <?php
-            if ($status === "Upcoming") {
-                echo "<td><span class='badge bg-success'>Upcoming (" . $difference->days . " days left)</span></td>";
-            } else {
-                echo "<td><span class='badge bg-danger'>Expired (" . $difference->days . " days ago)</span></td>";
-            }
-            ?>
+                            // When the Save button is clicked, save the new deadline
+                            $(this).click(function() {
+                                const newDeadline = deadlineInput.val();
 
-        <?php
-            echo "</tr>";
-        }
-        ?>
-    </tbody>
-</table>
-
-    </div>
-</div>
-
-<script>
-    $(document).ready(function() {
-        // Initialize DataTables
-        $('#moduleTable').DataTable({
-            // Add custom settings if needed
-            paging: true, // Pagination enabled
-            searching: true, // Enable searching
-            ordering: true, // Enable sorting
-            info: true, // Show table information
-        });
-
-        // When the edit button is clicked
-        $('.edit-btn').click(function() {
-            const moduleId = $(this).data('id');
-            const currentDeadline = $(this).data('deadline');
-
-            // Find the corresponding deadline text and input field
-            const deadlineText = $(this).closest('td').find('.deadline-text');
-            const deadlineInput = $(this).closest('td').find('.deadline-input');
-
-            // Toggle the visibility of text and input
-            deadlineText.toggle(); // Hide the text
-            deadlineInput.toggle(); // Show the input field with current deadline value
-
-            // Change the button text to 'Save' once it's clicked for editing
-            $(this).text('Save').removeClass('btn-warning').addClass('btn-success');
-
-            // When the Save button is clicked, save the new deadline
-            $(this).click(function() {
-                const newDeadline = deadlineInput.val();
-
-                if (newDeadline) {
-                    // Make the AJAX request to save the new deadline
-                    $.ajax({
-                        url: 'deadline_fetching/update_deadline.php', // Your PHP script to handle the update
-                        method: 'POST',
-                        data: {
-                            module_id: moduleId,
-                            new_deadline: newDeadline
-                        },
-                        success: function(response) {
-                            // If the update is successful, update the displayed deadline
-                            deadlineText.text(newDeadline);
-                            deadlineText.toggle(); // Show the updated text
-                            deadlineInput.toggle(); // Hide the input field
-                            alert('Deadline updated successfully!');
-                            window.location.reload(); // Redirect to the same page
-                        },
-                        error: function(error) {
-                            console.error("Error updating deadline:", error);
-                            alert('Failed to update deadline.');
-                        }
+                                if (newDeadline) {
+                                    // Make the AJAX request to save the new deadline
+                                    $.ajax({
+                                        url: 'deadline_fetching/update_deadline.php', // Your PHP script to handle the update
+                                        method: 'POST',
+                                        data: {
+                                            module_id: moduleId,
+                                            new_deadline: newDeadline
+                                        },
+                                        success: function(response) {
+                                            // If the update is successful, update the displayed deadline
+                                            deadlineText.text(newDeadline);
+                                            deadlineText.toggle(); // Show the updated text
+                                            deadlineInput.toggle(); // Hide the input field
+                                            alert('Deadline updated successfully!');
+                                            window.location.reload(); // Redirect to the same page
+                                        },
+                                        error: function(error) {
+                                            console.error("Error updating deadline:", error);
+                                            alert('Failed to update deadline.');
+                                        }
+                                    });
+                                } else {
+                                    alert('Please select a valid deadline.');
+                                }
+                            });
+                        });
                     });
-                } else {
-                    alert('Please select a valid deadline.');
-                }
-            });
-        });
-    });
-</script>
+                </script>
 
 
             </div>
