@@ -16,10 +16,8 @@ if (!isset($_SESSION['id'])) {
 }
 
 
-
 // Get the session email
 $checker_id = $_SESSION['id'];
-
 
 
 // Query to fetch student data based on checker_id from the student_submitted_form table
@@ -109,12 +107,7 @@ $stmt->close();
                                             echo '<td>' . htmlspecialchars($student['submitted_at']) . '</td>';
                                             echo '<td>' . htmlspecialchars($student['checker_downlaoded_at']) . '</td>';
 
-                                            // echo '<td>
-                                            //     <select class="status-dropdown" data-student-id="' . htmlspecialchars($student['student_id']) . '">
-                                            //         <option disabled value="pending" ' . ($student['checked_status'] == 'pending' ? 'selected' : '') . '>Pending</option>
-                                            //         <option value="checked" ' . ($student['checked_status'] == 'checked' ? 'selected' : '') . '>Checked</option>
-                                            //     </select>
-                                            // </td>';
+                                          
 
                                     ?>
                                             <td>
