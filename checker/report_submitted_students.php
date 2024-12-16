@@ -109,12 +109,27 @@ $stmt->close();
                                             echo '<td>' . htmlspecialchars($student['submitted_at']) . '</td>';
                                             echo '<td>' . htmlspecialchars($student['checker_downlaoded_at']) . '</td>';
 
-                                            echo '<td>
-                                                <select class="status-dropdown" data-student-id="' . htmlspecialchars($student['student_id']) . '">
-                                                    <option disabled value="pending" ' . ($student['checked_status'] == 'pending' ? 'selected' : '') . '>Pending</option>
-                                                    <option value="checked" ' . ($student['checked_status'] == 'checked' ? 'selected' : '') . '>Checked</option>
+                                            // echo '<td>
+                                            //     <select class="status-dropdown" data-student-id="' . htmlspecialchars($student['student_id']) . '">
+                                            //         <option disabled value="pending" ' . ($student['checked_status'] == 'pending' ? 'selected' : '') . '>Pending</option>
+                                            //         <option value="checked" ' . ($student['checked_status'] == 'checked' ? 'selected' : '') . '>Checked</option>
+                                            //     </select>
+                                            // </td>';
+
+                                    ?>
+                                            <td>
+                                                <select class="status-dropdown" data-student-id="<?php echo htmlspecialchars($student['student_id']); ?>">
+                                                    <option disabled value="pending" <?php echo ($student['checked_status'] == 'pending' ? 'selected' : ''); ?>>Pending</option>
+                                                    <option value="checked" <?php echo ($student['checked_status'] == 'checked' ? 'selected' : ''); ?>>Checked</option>
                                                 </select>
-                                            </td>';
+
+                                                <!-- Update Button (Initially Hidden) -->
+                                                <button class="btn btn-sm submit-status" data-student-id="<?php echo htmlspecialchars($student['student_id']); ?>" style="display: none;">
+                                                    <a href="mailto:<?php echo htmlspecialchars($student['bms_email']); ?>?subject=Regarding Submission Report&body=Hello <?php echo htmlspecialchars($student['name_full']); ?>,%0A%0AYour submission has been reviewed.&bcc=ccemail@example.com"
+                                                        class="btn btn-sm btn-primary" style="text-decoration:none;">Update</a>
+                                                </button>
+                                            </td>
+                                    <?php
                                             echo '</tr>';
 
                                             // Check for the 2nd document
