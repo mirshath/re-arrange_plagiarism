@@ -2,7 +2,6 @@
 $current_url = basename($_SERVER['REQUEST_URI'], ".php");
 ?>
 
-
 <style>
     .nav-item.active .nav-link {
         color: white !important;
@@ -28,11 +27,8 @@ $current_url = basename($_SERVER['REQUEST_URI'], ".php");
     }
 </style>
 
-
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-
-
 
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -117,8 +113,6 @@ $current_url = basename($_SERVER['REQUEST_URI'], ".php");
         <?php endif; ?>
     </li>
 
-
-
     <!-- Module Dead New (Super Admin & IT Department Only) -->
     <li class="nav-item <?= ($_SESSION['role'] === 'super_admin' || $_SESSION['role'] === 'it_department') ? (($current_url == 'allocate_module_date_new') ? 'active' : '') : 'disabled' ?>"
         id="navHover">
@@ -154,7 +148,6 @@ $current_url = basename($_SERVER['REQUEST_URI'], ".php");
         <?php endif; ?>
     </li>
 
-
     <li class="nav-item <?= ($current_url == 'checker_reg') ? 'active' : '' ?>" id="navHover">
         <?php if ($_SESSION['role'] === 'super_admin'): ?>
             <a class="nav-link" href="checker_reg">
@@ -168,8 +161,6 @@ $current_url = basename($_SERVER['REQUEST_URI'], ".php");
             </a>
         <?php endif; ?>
     </li>
-
-
 
 </ul>
 <!-- End of Sidebar -->

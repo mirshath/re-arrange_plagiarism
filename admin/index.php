@@ -4,15 +4,6 @@ include("../database/connection.php");
 include("includes/header.php");
 
 // Ensure the user is logged in and has the correct role
-// if ($_SESSION['role'] !== 'super_admin') {
-//     // header("Location: ../login.php"); 
-//     echo '<script>window.location.href = "../login.php";</script>';
-//     exit();
-// }
-
-
-
-// Ensure the user is logged in and has the correct role
 // if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'super_admin') {
 //     // Redirect to login page if not logged in or role is incorrect
 //     echo '<script>window.location.href = "../login";</script>';
@@ -30,9 +21,6 @@ if (
 }
 
 
-
-
-
 // Fetch the portal status from the database
 $query = "SELECT portal_status FROM portal WHERE id = 1"; // Adjust the query if needed based on your database structure
 $result = $conn->query($query);
@@ -45,8 +33,6 @@ if ($result && $result->num_rows > 0) {
         $portalStatusMessage = 'The portal is not available for use at the moment.';
     }
 }
-
-
 
 
 ?>
@@ -126,47 +112,7 @@ if ($result && $result->num_rows > 0) {
                 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
                 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                 <script>
-                    // document.addEventListener('DOMContentLoaded', function() {
-                    //     var calendarEl = document.getElementById('calendar');
-                    //     var calendar = new FullCalendar.Calendar(calendarEl, {
-                    //         initialView: 'dayGridMonth', // Default month view
-                    //         events: 'fetch_events.php', // Fetch events dynamically from the backend
-                    //         headerToolbar: {
-                    //             left: 'prev,next today',
-                    //             center: 'title',
-                    //             right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                    //         },
-                    //         eventContent: function(info) {
-                    //             var eventTitle = info.event.title; // Get the title (module_name)
-                    //             var eventDescription = info.event.extendedProps.description; // Get the description
-
-                    //             // Check if the deadline has passed
-                    //             var deadlineDate = new Date(info.event.start); // Event start date (deadline)
-                    //             var currentDate = new Date(); // Current date
-                    //             var isPast = deadlineDate < currentDate;
-
-                    //             // Create a custom element for the title with inline style
-                    //             var titleElement = document.createElement('div');
-                    //             titleElement.innerHTML = eventTitle;
-
-                    //             // Set the title color based on whether the deadline has passed
-                    //             if (isPast) {
-                    //                 titleElement.style.color = 'red'; // Red color for passed deadlines
-                    //             } else {
-                    //                 titleElement.style.color = 'white'; // Green color for upcoming deadlines
-                    //             }
-
-                    //             titleElement.style.backgroundColor = 'transparent'; // Ensure no background color
-
-                    //             // Return the custom content for the event
-                    //             return {
-                    //                 domNodes: [titleElement]
-                    //             };
-                    //         }
-                    //     });
-                    //     calendar.render();
-                    // });
-
+                    
                     document.addEventListener('DOMContentLoaded', function () {
                         var calendarEl = document.getElementById('calendar');
                         var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -242,8 +188,6 @@ if ($result && $result->num_rows > 0) {
                     });
                 </script>
                 <!-- --------------------------------------------------------------  -->
-
-
             </div>
             <!-- End Page Content -->
 

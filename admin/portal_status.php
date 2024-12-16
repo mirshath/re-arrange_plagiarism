@@ -10,8 +10,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'super_admin') {
     exit();
 }
 
-
-
 // Fetch current portal status from the database
 $query = "SELECT portal_status FROM portal WHERE id = 1";
 $result = $conn->query($query);
@@ -80,7 +78,6 @@ if ($result && $result->num_rows > 0) {
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>

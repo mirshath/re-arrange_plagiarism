@@ -3,16 +3,12 @@ session_start();
 include("../database/connection.php");
 include("includes/header.php");
 
-
 // Ensure the user is logged in and has the correct role
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'super_admin') {
     // Redirect to login page if not logged in or role is incorrect
     echo '<script>window.location.href = "../login";</script>';
     exit();
 }
-
-
-
 
 ?>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -184,7 +180,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'super_admin') {
                     </div>
                 </div>
 
-
                 <div class="row mb-5">
                     <div class="col-md">
 
@@ -285,8 +280,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'super_admin') {
 </div>
 <!-- End of Page Wrapper -->
 
-
-
 <script src="../index.js"></script>
 
 <!-- Page level plugins -->
@@ -298,5 +291,4 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'super_admin') {
 <script src="js/demo/datatables-demo.js"></script>
 
 </body>
-
 </html>

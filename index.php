@@ -16,8 +16,6 @@ include('./includes/header.php');
 //     }
 // }
 
-
-
 ?>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -122,15 +120,12 @@ include('./includes/header.php');
                                     </div>
                                 </div>
 
-
                                 <button type="button" class="btn btn-primary float-end" id="next_button">
                                     Next <i class="fas fa-arrow-right"></i>
                                 </button>
 
                             </div>
                         </div>
-
-
 
                         <div class="card mt-2 lft_border" id="d_hide" style="display: none;">
                             <div class="card-body shadow">
@@ -244,9 +239,7 @@ include('./includes/header.php');
                                                 </div>
                                             </div>
                                         </div>
-
-
-
+                                        
                                         <!-- ---------  -->
                                         <div class="mb-2" id="mdl_deadline" style="display: none;">
                                             <div class="row">

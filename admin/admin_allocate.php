@@ -10,10 +10,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'super_admin') {
     exit();
 }
 
-
-
 ?>
-
 
 <!-- Page Wrapper -->
 <div id="wrapper">
@@ -218,7 +215,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'super_admin') {
             }
         });
 
-
         // ================================================ 
         $('#batch').on('change', function () {
             const batchId = $(this).val();
@@ -316,8 +312,5 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'super_admin') {
 <link rel="stylesheet" href="./vendor/datatables/dataTables.bootstrap4.min.css">
 <!-- Page level custom scripts -->
 <script src="js/demo/datatables-demo.js"></script>
-
-
 </body>
-
 </html>

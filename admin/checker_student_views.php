@@ -10,7 +10,6 @@ include("includes/header.php");
 //     exit();
 // }
 
-
 if (
     !isset($_SESSION['role']) ||
     ($_SESSION['role'] !== 'super_admin' && $_SESSION['role'] !== 'it_department')
@@ -18,8 +17,6 @@ if (
     echo '<script>window.location.href = "../login";</script>';
     exit();
 }
-
-
 
 
 ?>

@@ -19,16 +19,35 @@ $checker_id = $_SESSION['id'];
 
 // Query to fetch student data based on checker_id from the student_submitted_form table
 // $sql = "SELECT * FROM student_submitted_form WHERE checker_id = ? AND checked_status = 'checked'";
-$sql = "SELECT ssf.*, mt.module_name FROM student_submitted_form ssf INNER JOIN module_table mt ON ssf.module_id = mt.id WHERE ssf.checker_id = ? AND ssf.checked_status = 'checked'";
+// $sql = "SELECT ssf.*, mt.module_name FROM student_submitted_form ssf INNER JOIN module_table mt ON ssf.module_id = mt.id WHERE ssf.checker_id = ? AND ssf.checked_status = 'checked'";
+
+// $stmt = $conn->prepare($sql);
+// $stmt->bind_param("s", $checker_id);  // Binding session email to the query
+// $stmt->execute();
+// $result = $stmt->get_result();
+
+// $students = $result->fetch_all(MYSQLI_ASSOC);
+// $stmt->close();
+
+
+
+// Modified query to include program_name and batch_name
+$sql = "SELECT ssf.*, mt.module_name, p.program_name, b.batch_name 
+        FROM student_submitted_form ssf 
+        INNER JOIN module_table mt ON ssf.module_id = mt.id 
+        LEFT JOIN program_table p ON ssf.program_id = p.program_name
+        LEFT JOIN batch_table b ON ssf.batch_id = b.batch_name
+        WHERE ssf.checker_id = ? AND ssf.checked_status = 'pending'";
 
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $checker_id);  // Binding session email to the query
+$stmt->bind_param("s", $checker_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
 // Fetching all student data
 $students = $result->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
+
 
 // Fetch distinct modules for the dropdown
 $moduleQuery = "SELECT DISTINCT mt.module_name FROM module_table mt INNER JOIN student_submitted_form ssf ON mt.id = ssf.module_id WHERE ssf.checker_id = ?";
@@ -42,7 +61,7 @@ $moduleStmt->close();
 
 <!-- Page Wrapper -->
 <div id="wrapper">
-  
+
     <?php include("nav.php"); ?>
 
     <div id="content-wrapper" class="d-flex flex-column">
@@ -72,6 +91,8 @@ $moduleStmt->close();
                                         <th>Student ID <input type="text" style="font-size: 11px;" class="form-control" id="searchStudentID" placeholder="Search by Student ID"></th>
                                         <th>Name <input type="text" id="searchName" style="font-size: 11px;" class="form-control" placeholder="Search by Name"></th>
                                         <th>BMS Email <input type="text" id="searchEmail" style="font-size: 11px;" class="form-control" placeholder="Search by Email"></th>
+                                        <th>Program</th>
+                                        <th>Batch</th>
                                         <th>Module
                                             <select id="searchModule" style="font-size: 11px;" class="form-control">
                                                 <option value="">All Modules</option>
@@ -89,7 +110,7 @@ $moduleStmt->close();
                                 </thead>
                                 <tbody>
                                     <?php
-                                  
+
                                     if ($students) {
                                         $index = 1;
                                         foreach ($students as $student) {
@@ -102,6 +123,8 @@ $moduleStmt->close();
                                             echo '<td>' . htmlspecialchars($student['student_id']) . '</td>';
                                             echo '<td>' . htmlspecialchars($student['name_full']) . '</td>';
                                             echo '<td>' . htmlspecialchars($student['bms_email']) . '</td>';
+                                            echo '<td>' . htmlspecialchars($student['program_name']) . '</td>';
+                                            echo '<td>' . htmlspecialchars($student['batch_name']) . '</td>';
                                             echo '<td>' . htmlspecialchars($student['module_name']) . '</td>';
 
                                             if (!empty($student['Documents'])) {
@@ -141,7 +164,7 @@ $moduleStmt->close();
                                             if (!empty($student['submitted_at_2nd_time']) && !empty($student['Documents_1'])) {
                                                 $document_path = $student['Documents_1'];
                                                 echo '<tr>';
-                                                echo '<td colspan="5" class="text-right"><strong>Second Submission Time:</strong> </td>';
+                                                echo '<td colspan="7" class="text-right"><strong>Second Submission Time:</strong> </td>';
                                                 echo '<td class="text-center"><a href="../uploads/documents/' . htmlspecialchars($document_path) . '" target="_blank" style="text-decoration:none;" class="download-link" data-id="' . $student['student_id'] . '">
                                                         Download &nbsp;<i class="fas fa-download"></i>
                                                         </a></td>';
@@ -152,7 +175,7 @@ $moduleStmt->close();
                                             if (!empty($student['submitted_at_3rd_time']) && !empty($student['Documents_2'])) {
                                                 $document_path = $student['Documents_2'];
                                                 echo '<tr>';
-                                                echo '<td colspan="5" class="text-right"><strong>Third Submission Time:</strong></td>';
+                                                echo '<td colspan="7" class="text-right"><strong>Third Submission Time:</strong></td>';
                                                 echo '<td class="text-center"><a href="../uploads/documents/' . htmlspecialchars($document_path) . '" target="_blank" style="text-decoration:none;" class="download-link" data-id="' . $student['student_id'] . '">
                                                         Download &nbsp;<i class="fas fa-download"></i>
                                                         </a></td>';
@@ -238,11 +261,11 @@ $moduleStmt->close();
 
             <script>
                 $(document).on('click', '.submit-status', function() {
-                    var studentId = $(this).data('student-id'); 
-                    var status = $(this).closest('tr').find('.status-dropdown').val(); 
+                    var studentId = $(this).data('student-id');
+                    var status = $(this).closest('tr').find('.status-dropdown').val();
 
                     $.ajax({
-                        url: 'update_student_status.php', 
+                        url: 'update_student_status.php',
                         type: 'POST',
                         data: {
                             student_id: studentId,
@@ -276,39 +299,6 @@ $moduleStmt->close();
                     });
                 });
             </script>
-
-            <!-- <script>
-                $(document).on('click', '.download-link', function(e) {
-                    e.preventDefault(); // Prevent the default behavior of the link
-
-                    var studentId = $(this).data('id'); // Get the student ID from the data attribute of the clicked link
-                    var checkerId = <?php echo $_SESSION['id']; ?>; // Get the checker_id from the session
-
-                    // Send the student_id and checker_id to the PHP script
-                    $.ajax({
-                        url: 'update_viewed_time.php', // The PHP file that will handle the update
-                        type: 'POST',
-                        data: {
-                            student_id: studentId,
-                            checker_id: checkerId
-                        },
-                        success: function(response) {
-                            console.log('Response:', response); // Log the response for debugging
-                            if (response === 'success') {
-                                alert('Downloaded time updated successfully!');
-                            } else {
-                                alert('Error updating viewed time: ' + response); // Show the error message if not successful
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            console.log('AJAX Error:', error); // Log any AJAX errors
-                        }
-                    });
-
-                    // Open the document in a new tab as before
-                    window.open($(this).attr('href'), '_blank');
-                });
-            </script> -->
 
         </div>
         <!-- End of Main Content -->

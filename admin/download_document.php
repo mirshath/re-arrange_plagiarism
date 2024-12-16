@@ -1,16 +1,6 @@
 <?php
-// Start session if needed
 session_start();
-
-// Include the database connection
 include("../database/connection.php");
-
-// Ensure the user is logged in and has the correct role
-// if ($_SESSION['role'] !== 'super_admin') {
-//     echo '<script>window.location.href = "../login.php";</script>';
-//     exit();
-// }
-
 
 // Ensure the user is logged in and has the correct role
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'super_admin') {
@@ -18,8 +8,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'super_admin') {
     echo '<script>window.location.href = "../login";</script>';
     exit();
 }
-
-
 
 // Get the file name from the GET request
 if (isset($_GET['file']) && !empty($_GET['file'])) {

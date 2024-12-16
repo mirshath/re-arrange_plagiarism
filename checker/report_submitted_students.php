@@ -19,12 +19,16 @@ if (!isset($_SESSION['id'])) {
 // Get the session email
 $checker_id = $_SESSION['id'];
 
+// Modified query to include program_name and batch_name
+$sql = "SELECT ssf.*, mt.module_name, p.program_name, b.batch_name 
+        FROM student_submitted_form ssf 
+        INNER JOIN module_table mt ON ssf.module_id = mt.id 
+        LEFT JOIN program_table p ON ssf.program_id = p.program_name
+        LEFT JOIN batch_table b ON ssf.batch_id = b.batch_name
+        WHERE ssf.checker_id = ? AND ssf.checked_status = 'pending'";
 
-// Query to fetch student data based on checker_id from the student_submitted_form table
-// $sql = "SELECT * FROM student_submitted_form WHERE checker_id = ?  AND checked_status = 'pending'";
-$sql = "SELECT ssf.*, mt.module_name FROM student_submitted_form ssf INNER JOIN module_table mt ON ssf.module_id = mt.id WHERE ssf.checker_id = ? AND ssf.checked_status = 'pending'";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $checker_id);  // Binding session email to the query
+$stmt->bind_param("s", $checker_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -45,7 +49,7 @@ $stmt->close();
             <!-- Topbar ssss -->
             <?php include("includes/topnav.php"); ?>
 
-            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awes    ome/5.15.4/css/all.min.css" rel="stylesheet">
 
             <!-- Table to display student data -->
             <div class="container-fluid">
@@ -65,6 +69,7 @@ $stmt->close();
                                         <th>Student ID</th>
                                         <th>Name</th>
                                         <th>BMS Email</th>
+                                        <th>Program</th>
                                         <th>Module Name</th>
                                         <th>Documents/Reports</th>
                                         <th>Submitted_at</th>
@@ -83,6 +88,8 @@ $stmt->close();
                                             echo '<td>' . htmlspecialchars($student['student_id']) . '</td>';
                                             echo '<td>' . htmlspecialchars($student['name_full']) . '</td>';
                                             echo '<td>' . htmlspecialchars($student['bms_email']) . '</td>';
+                                            echo '<td>' . htmlspecialchars($student['program_name']) . '</td>';
+                                            echo '<td>' . htmlspecialchars($student['batch_name']) . '</td>';
                                             echo '<td>' . htmlspecialchars($student['module_name']) . '</td>';
 
                                             // Check for the 1st document
@@ -107,7 +114,7 @@ $stmt->close();
                                             echo '<td>' . htmlspecialchars($student['submitted_at']) . '</td>';
                                             echo '<td>' . htmlspecialchars($student['checker_downlaoded_at']) . '</td>';
 
-                                          
+
 
                                     ?>
                                             <td>
@@ -131,7 +138,7 @@ $stmt->close();
 
                                                 // If 3rd document is submitted, disable the 2nd document link
                                                 echo '<tr>';
-                                                echo '<td colspan="5" class="text-right"><strong>Second Submission Time:</strong></td>';
+                                                echo '<td colspan="7" class="text-right"><strong>Second Submission Time:</strong></td>';
                                                 if (!empty($student['submitted_at_3rd_time'])) {
                                                     echo '<td class="text-center"><span class="text-muted">View Only</span></td>';
                                                 } else {
@@ -149,7 +156,7 @@ $stmt->close();
                                             if (!empty($student['submitted_at_3rd_time']) && !empty($student['Documents_2'])) {
                                                 $document_path = $student['Documents_2'];
                                                 echo '<tr>';
-                                                echo '<td colspan="5" class="text-right"><strong>Third Submission Time:</strong></td>';
+                                                echo '<td colspan="7" class="text-right"><strong>Third Submission Time:</strong></td>';
                                                 echo '<td class="text-center">
                                                     <a href="../uploads/documents/' . htmlspecialchars($document_path) . '" target="_blank" style="text-decoration:none;" class="download-link" data-id="' . $student['student_id'] . '" data-module-id="' . htmlspecialchars($student['module_id']) . '">
                                                         Download &nbsp;<i class="fas fa-download"></i>

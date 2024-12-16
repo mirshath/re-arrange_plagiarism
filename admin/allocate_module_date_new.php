@@ -274,8 +274,6 @@ if ($result) {
                         });
                     });
                 </script>
-
-
             </div>
         </div>
         <!-- End of Main Content -->

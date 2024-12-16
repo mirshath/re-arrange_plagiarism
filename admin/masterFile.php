@@ -4,20 +4,11 @@ include("../database/connection.php");
 include("includes/header.php");
 
 // Ensure the user is logged in and has the correct role
-// if ($_SESSION['role'] !== 'super_admin') {
-//     echo '<script>window.location.href = "../login.php";</script>';
-//     exit();
-// }
-
-
-// Ensure the user is logged in and has the correct role
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'super_admin') {
     // Redirect to login page if not logged in or role is incorrect
     echo '<script>window.location.href = "../login";</script>';
     exit();
 }
-
-
 
 // Handle form submission for adding program
 if (isset($_POST['submit_program'])) {
@@ -146,11 +137,6 @@ if (isset($_POST['submit_module'])) {
                 </div>
             </div>
 
-
-
-
-
-
             <!-- Add Module Section -->
             <div class="row mb-5 p-4">
                 <div class="col-md-8">
@@ -163,10 +149,6 @@ if (isset($_POST['submit_module'])) {
                         </div>
                         <div class="card-body">
                             <form action="" method="post" class="mb-3" id="moduleForm">
-
-
-
-
 
                                 <!-- Dropdown for Program Name -->
                                 <div class="form-group">
@@ -183,7 +165,6 @@ if (isset($_POST['submit_module'])) {
                                         ?>
                                     </select>
                                 </div>
-
 
                                 <div id="moduleRowsContainer" class="mb-3">
                                     <div class="module-row">
@@ -242,8 +223,6 @@ if (isset($_POST['submit_module'])) {
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>

@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>404 Error Page</title>
+    <title>~404~Error~ </title>
 </head>
 <style>
     @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
@@ -48,18 +48,18 @@
     }
 
     .content h2.header:after {
-    position: absolute;
-    content: attr(data-text);
-    top: 0;
-    left: 0;
-    right: 0;
-    background: -webkit-repeating-linear-gradient(-45deg, #d5d5d5, #073655, #b98acc, #651a12, #0a1059, #073655, #610616);
-    background-size: 400%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.25);
-    animation: animate 10s ease-in-out infinite;
-}
+        position: absolute;
+        content: attr(data-text);
+        top: 0;
+        left: 0;
+        right: 0;
+        background: -webkit-repeating-linear-gradient(-45deg, #d5d5d5, #073655, #b98acc, #651a12, #0a1059, #073655, #610616);
+        background-size: 400%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.25);
+        animation: animate 10s ease-in-out infinite;
+    }
 
     @keyframes animate {
         0% {

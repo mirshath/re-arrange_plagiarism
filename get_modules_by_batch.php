@@ -13,8 +13,6 @@ if (empty($batch_id)) {
     exit;
 }
 
-
-
 // Query to fetch modules for the selected batch with deadlines after today's date
 $query = "
     SELECT *
