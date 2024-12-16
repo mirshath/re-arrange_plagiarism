@@ -128,7 +128,7 @@ if (isset($_POST['submit'])) {
                                 <table id="detailsTable" class="display" style="font-size: 11px;">
                                     <?php
                                     // Fetch distinct modules for the dropdown
-                                    $moduleQuery = "SELECT DISTINCT  mt.module_name FROM module_table mt INNER JOIN student_submitted_form ssf ON mt.id = ssf.module_id WHERE ssf.checker_id = ?";
+                                    $moduleQuery = "SELECT DISTINCT mt.module_name FROM module_table mt INNER JOIN student_submitted_form ssf ON mt.id = ssf.module_id WHERE ssf.checker_id = ?";
 
                                     // Using prepared statements for safety
                                     $moduleStmt = $conn->prepare($moduleQuery);
@@ -140,30 +140,8 @@ if (isset($_POST['submit'])) {
 
                                     // ------------------------------------------------- 
 
-                                    // Add this where you fetch the modules
-                                    $programQuery = "SELECT DISTINCT pt.program_name FROM program_table pt 
-                                    INNER JOIN module_table mt ON pt.id = mt.program_id 
-                                    INNER JOIN student_submitted_form ssf ON mt.id = ssf.module_id 
-                                    WHERE ssf.checker_id = ?";
-                                    $programStmt = $conn->prepare($programQuery);
-                                    $programStmt->bind_param("s", $checker_id);
-                                    $programStmt->execute();
-                                    $programResult = $programStmt->get_result();
-                                    $programs = $programResult->fetch_all(MYSQLI_ASSOC);
-                                    $programStmt->close();
-                                    // ------------------------------------------------------------------ 
 
-                                    // Add this where you fetch the modules and programs
-                                    $batchQuery = "SELECT DISTINCT bt.batch_name FROM batch_table bt 
-                                        INNER JOIN module_table mt ON bt.id = mt.batch_id 
-                                        INNER JOIN student_submitted_form ssf ON mt.id = ssf.module_id 
-                                        WHERE ssf.checker_id = ?";
-                                    $batchStmt = $conn->prepare($batchQuery);
-                                    $batchStmt->bind_param("s", $checker_id);
-                                    $batchStmt->execute();
-                                    $batchResult = $batchStmt->get_result();
-                                    $batches = $batchResult->fetch_all(MYSQLI_ASSOC);
-                                    $batchStmt->close();
+                                    // ------------------------------------------------------------------ 
 
                                     // ------------------------------------------------------------------ 
                                     ?>
@@ -172,26 +150,8 @@ if (isset($_POST['submit'])) {
                                             <th>Student ID</th>
                                             <th>Student Name</th>
                                             <th>Student Email</th>
-                                            <th>Program
-                                                <select id="searchProgram" style="font-size: 11px;" class="form-control">
-                                                    <option value="">All Programs</option>
-                                                    <?php foreach ($programs as $program): ?>
-                                                        <option value="<?php echo htmlspecialchars($program['program_name']); ?>">
-                                                            <?php echo htmlspecialchars($program['program_name']); ?>
-                                                        </option>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </th>
-                                            <th>Batch
-                                                <select id="searchBatch" style="font-size: 11px;" class="form-control">
-                                                    <option value="">All Batches</option>
-                                                    <?php foreach ($batches as $batch): ?>
-                                                        <option value="<?php echo htmlspecialchars($batch['batch_name']); ?>">
-                                                            <?php echo htmlspecialchars($batch['batch_name']); ?>
-                                                        </option>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </th>
+                                            <th>Program</th>
+                                            <th>Batch</th>
                                             <!-- <th>Module</th> -->
                                             <th>Module
                                                 <select id="searchModule" style="font-size: 11px;" class="form-control">
@@ -276,28 +236,18 @@ if (isset($_POST['submit'])) {
 
 
 <script>
+    // Initialize DataTable
     $(document).ready(function() {
         var table = $('#detailsTable').DataTable();
 
         // Filter by module selection
         $('#searchModule').on('change', function() {
             var selectedModule = this.value;
-            table.column(5).search(selectedModule).draw(); // Adjust column index if needed
-        });
-
-        // Filter by program selection
-        $('#searchProgram').on('change', function() {
-            var selectedProgram = this.value;
-            table.column(3).search(selectedProgram).draw(); // Adjust column index if needed
-        });
-
-        // Filter by batch selection
-        $('#searchBatch').on('change', function() {
-            var selectedBatch = this.value;
-            table.column(4).search(selectedBatch).draw(); // Adjust column index if needed
+            table.column(5).search(selectedModule).draw(); // Apply filter on module column (index 4)
         });
     });
 </script>
+
 
 
 <?php include("includes/footer.php"); ?>
